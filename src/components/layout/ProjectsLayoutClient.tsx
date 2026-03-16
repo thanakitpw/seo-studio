@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Sidebar from './Sidebar'
 
@@ -9,8 +10,8 @@ export default function ProjectsLayoutClient({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
+  const [collapsed, setCollapsed] = useState(false)
 
-  // Extract projectId from path: /projects/[id]/...
   const segments = pathname.split('/')
   const projectIndex = segments.indexOf('projects')
   const projectId =
@@ -20,8 +21,12 @@ export default function ProjectsLayoutClient({
 
   return (
     <div className="flex h-screen">
-      <Sidebar projectId={projectId} />
-      <main className="flex-1 bg-[#f6f6f8] overflow-auto p-8">
+      <Sidebar
+        projectId={projectId}
+        collapsed={collapsed}
+        onToggle={() => setCollapsed(!collapsed)}
+      />
+      <main className="flex-1 bg-[#f6f6f8] overflow-auto">
         {children}
       </main>
     </div>
