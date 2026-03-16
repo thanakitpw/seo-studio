@@ -11,7 +11,9 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:ui-audit": "playwright test tests/ui-audit.spec.ts --headed",
-    "test:ui-audit:update": "playwright test tests/ui-audit.spec.ts --update-snapshots"
+    "test:ui-audit:update": "playwright test tests/ui-audit.spec.ts --update-snapshots",
+    "test:api": "playwright test tests/api/ --reporter=list",
+    "test:all": "playwright test --reporter=list"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",

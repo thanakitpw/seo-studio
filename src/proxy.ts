@@ -13,7 +13,7 @@ export function proxy(request: NextRequest) {
   // Public paths — ไม่ต้อง auth
   if (
     pathname.startsWith('/login') ||
-    pathname.startsWith('/api/auth')
+    pathname.startsWith('/api/')
   ) {
     return NextResponse.next()
   }
@@ -22,6 +22,10 @@ export function proxy(request: NextRequest) {
   const isAuthenticated = cookie?.value === sessionToken()
 
   if (!isAuthenticated) {
+    // API routes return 401 JSON instead of redirect
+    if (pathname.startsWith('/api/')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
     return NextResponse.redirect(new URL('/login', request.url))
   }
 

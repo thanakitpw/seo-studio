@@ -46,6 +46,18 @@
 2. **ตรวจสอบ** — ไม่มี console.log หลงเหลือ, import paths ถูกต้อง
 3. **อัพเดท progress** — อัพเดท Development Progress section ในไฟล์นี้
 
+### ขั้นตอน Test หลังทำแต่ละ Phase เสร็จ (บังคับ — ห้ามข้าม)
+
+ทุกครั้งที่ทำ phase เสร็จ **ต้อง** ทำตามลำดับนี้ก่อนไป phase ถัดไป:
+
+1. **รัน E2E tests** — `npm run test:e2e` ต้องผ่านทั้งหมด (30 tests)
+2. **รัน UI audit** — `npm run test:ui-audit` เทียบ screenshot กับ baseline
+3. **ให้ user ตรวจ browser** — เปิดทุกหน้าที่แก้ไข ส่ง screenshot ให้ user ดู
+4. **แก้ bug ที่เจอ** — แก้ให้หมดก่อน commit
+5. **อัพเดท baseline screenshots** — ถ้า UI เปลี่ยนตั้งใจ รัน `npm run test:ui-audit:update`
+6. **อัพเดท TASKS.md** — ติ๊ก [x] tasks ที่ทำเสร็จ
+7. **Commit + Push** — เมื่อ user สั่งเท่านั้น
+
 ---
 
 ## v2.0 สิ่งที่เปลี่ยนจาก v1.0
