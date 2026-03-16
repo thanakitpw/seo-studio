@@ -57,6 +57,8 @@ export interface Keyword {
   content_type: ContentType
   priority: Priority
   status: KeywordStatus
+  kd: number | null
+  volume: number | null
   article_id: string | null
   created_at: string
   updated_at: string

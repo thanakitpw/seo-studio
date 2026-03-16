@@ -10,11 +10,11 @@ interface CategoryProgressProps {
 
 export default function CategoryProgress({ categories }: CategoryProgressProps) {
   return (
-    <div className="flex flex-col flex-1 rounded-xl gap-5 bg-white border border-slate-200 p-6">
-      <h2 className="text-base font-semibold text-slate-900">
+    <div className="flex flex-col rounded-xl bg-white border border-slate-200 p-6 min-h-0">
+      <h2 className="text-base font-semibold text-slate-900 shrink-0 mb-5">
         หมวดหมู่
       </h2>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 overflow-y-auto flex-1">
         {categories.map((cat) => {
           const percent = cat.total > 0 ? Math.round((cat.published / cat.total) * 100) : 0
           return (

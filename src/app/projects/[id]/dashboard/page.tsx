@@ -109,27 +109,31 @@ export default async function DashboardPage({ params }: PageProps) {
         </Link>
       </div>
 
-      {/* Main Content */}
-      <div className="flex flex-col flex-1 py-8 px-10 overflow-auto gap-6">
+      {/* Main Content — fit viewport, no page scroll */}
+      <div className="flex flex-col flex-1 py-6 px-10 overflow-hidden gap-5">
         {/* Stats Cards */}
-        <StatsCards
-          totalKeywords={totalKeywords}
-          publishedArticles={publishedArticles}
-          draftArticles={draftArticles}
-          pendingKeywords={pendingKeywords}
-        />
+        <div className="shrink-0">
+          <StatsCards
+            totalKeywords={totalKeywords}
+            publishedArticles={publishedArticles}
+            draftArticles={draftArticles}
+            pendingKeywords={pendingKeywords}
+          />
+        </div>
 
-        {/* Two Columns: Categories + Recent Activity */}
-        <div className="grid grid-cols-2 gap-6">
+        {/* Two Columns: Categories + Recent Activity — scroll ภายใน */}
+        <div className="grid grid-cols-2 gap-5 flex-1 min-h-0">
           <CategoryProgress categories={categories} />
           <RecentActivity activities={recentArticles ?? []} />
         </div>
 
-        {/* Token Usage */}
-        <TokenUsage
-          totalTokens={totalTokens}
-          totalArticles={articlesWithTokens.length}
-        />
+        {/* Token Usage — always visible */}
+        <div className="shrink-0">
+          <TokenUsage
+            totalTokens={totalTokens}
+            totalArticles={articlesWithTokens.length}
+          />
+        </div>
       </div>
     </div>
   )

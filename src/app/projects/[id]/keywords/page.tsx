@@ -85,11 +85,25 @@ export default function KeywordsPage() {
     fetchKeywords()
   }, [fetchKeywords])
 
-  // Extract unique clusters for filter
-  const clusters = useMemo(() => {
-    const set = new Set(keywords.map((k) => k.cluster))
-    return Array.from(set).sort()
-  }, [keywords])
+  // Fetch all clusters for filter dropdown
+  const [clusters, setClusters] = useState<string[]>([])
+
+  useEffect(() => {
+    async function fetchClusters() {
+      try {
+        const res = await fetch(`/api/keywords?project_id=${projectId}&limit=1000`)
+        if (res.ok) {
+          const json = await res.json()
+          const data = json.data || json || []
+          const set = new Set<string>(data.map((k: Keyword) => k.cluster).filter(Boolean))
+          setClusters(Array.from(set).sort())
+        }
+      } catch {
+        // ignore
+      }
+    }
+    fetchClusters()
+  }, [projectId])
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }))
@@ -97,7 +111,6 @@ export default function KeywordsPage() {
   }
 
   const handleView = (keyword: Keyword) => {
-    // Navigate based on status
     if (keyword.status === 'published' || keyword.status === 'draft' || keyword.status === 'review') {
       window.location.href = `/projects/${projectId}/articles/${keyword.slug}/edit`
     } else if (keyword.status === 'pending' || keyword.status === 'brief-ready') {
@@ -105,12 +118,24 @@ export default function KeywordsPage() {
     }
   }
 
+  const handleDelete = async (keyword: Keyword) => {
+    if (!confirm(`ลบ "${keyword.title}" หรือไม่?`)) return
+    try {
+      const res = await fetch(`/api/keywords/${keyword.id}`, { method: 'DELETE' })
+      if (res.ok) {
+        fetchKeywords()
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   return (
-    <div className="space-y-0">
+    <div className="p-8">
       {/* Header Bar */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-slate-800">คำหลัก</h1>
+          <h1 className="text-2xl font-bold text-foreground">คำหลัก</h1>
           <span className="flex h-5 items-center rounded-full bg-[#6467f2]/10 px-2.5 text-xs font-semibold text-[#6467f2]">
             {total}
           </span>
@@ -118,7 +143,7 @@ export default function KeywordsPage() {
 
         <div className="flex items-center gap-3">
           <div className="relative">
-            <span className="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" style={{ fontSize: '16px' }}>
+            <span className="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" style={{ fontSize: '16px' }}>
               search
             </span>
             <Input
@@ -158,10 +183,10 @@ export default function KeywordsPage() {
       {/* Table */}
       {loading ? (
         <div className="flex items-center justify-center py-20">
-          <span className="material-symbols-outlined animate-spin text-3xl text-slate-300">progress_activity</span>
+          <span className="material-symbols-outlined animate-spin text-3xl text-muted-foreground/50">progress_activity</span>
         </div>
       ) : (
-        <KeywordTable keywords={keywords} onView={handleView} />
+        <KeywordTable keywords={keywords} onView={handleView} onDelete={handleDelete} />
       )}
 
       {/* Pagination */}

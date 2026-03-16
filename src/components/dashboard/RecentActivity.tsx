@@ -37,11 +37,11 @@ function getRelativeTime(dateStr: string): string {
 
 export default function RecentActivity({ activities }: RecentActivityProps) {
   return (
-    <div className="flex flex-col flex-1 rounded-xl gap-4 bg-white border border-slate-200 p-6">
-      <h2 className="text-base font-semibold text-slate-900">
+    <div className="flex flex-col rounded-xl bg-white border border-slate-200 p-6 min-h-0">
+      <h2 className="text-base font-semibold text-slate-900 shrink-0 mb-4">
         กิจกรรมล่าสุด
       </h2>
-      <div className="flex flex-col gap-3.5">
+      <div className="flex flex-col gap-3.5 overflow-y-auto flex-1">
         {activities.length === 0 && (
           <p className="text-sm text-slate-400">ยังไม่มีกิจกรรม</p>
         )}

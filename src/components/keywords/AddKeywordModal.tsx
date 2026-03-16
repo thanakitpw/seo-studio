@@ -14,11 +14,16 @@ interface AddKeywordModalProps {
   onSuccess: () => void
 }
 
-const CLUSTERS = [
+const DEFAULT_CLUSTERS = [
   'AI & Automation',
   'Digital Marketing',
   'Web Development',
   'Business Strategy',
+  'SEO',
+  'Social Media',
+  'Content Marketing',
+  'Facebook & Google Ads',
+  'Case Study',
 ]
 
 const CONTENT_TYPES = ['Blog', 'Pillar Page', 'Landing Page']
@@ -39,6 +44,8 @@ export default function AddKeywordModal({
   const [keyword, setKeyword] = useState('')
   const [slug, setSlug] = useState('')
   const [cluster, setCluster] = useState('')
+  const [customCluster, setCustomCluster] = useState('')
+  const [showCustomCluster, setShowCustomCluster] = useState(false)
   const [contentType, setContentType] = useState('')
   const [priority, setPriority] = useState('Medium')
   const [submitting, setSubmitting] = useState(false)
@@ -56,6 +63,8 @@ export default function AddKeywordModal({
       setKeyword('')
       setSlug('')
       setCluster('')
+      setCustomCluster('')
+      setShowCustomCluster(false)
       setContentType('')
       setPriority('Medium')
       setError('')
@@ -63,7 +72,8 @@ export default function AddKeywordModal({
   }, [open])
 
   const handleSubmit = async () => {
-    if (!title.trim() || !keyword.trim() || !slug.trim() || !cluster || !contentType) {
+    const finalCluster = showCustomCluster ? customCluster.trim() : cluster
+    if (!title.trim() || !keyword.trim() || !slug.trim() || !finalCluster || !contentType) {
       setError('กรุณากรอกข้อมูลให้ครบถ้วน')
       return
     }
@@ -80,7 +90,7 @@ export default function AddKeywordModal({
           title: title.trim(),
           primary_keyword: keyword.trim(),
           slug: slug.trim(),
-          cluster,
+          cluster: finalCluster,
           content_type: contentType,
           priority,
         }),
@@ -181,23 +191,49 @@ export default function AddKeywordModal({
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-slate-700">หมวดหมู่</label>
-              <select
-                value={cluster}
-                onChange={(e) => setCluster(e.target.value)}
-                className={cn(
-                  'h-8 w-full cursor-pointer rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50',
-                  !cluster && 'text-muted-foreground'
-                )}
-              >
-                <option value="" disabled>
-                  เลือกหมวดหมู่
-                </option>
-                {CLUSTERS.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
+              {showCustomCluster ? (
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="พิมพ์ชื่อหมวดหมู่ใหม่"
+                    value={customCluster}
+                    onChange={(e) => setCustomCluster(e.target.value)}
+                    className="flex-1"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => { setShowCustomCluster(false); setCustomCluster('') }}
+                    className="cursor-pointer text-xs text-muted-foreground hover:text-foreground"
+                  >
+                    ยกเลิก
+                  </button>
+                </div>
+              ) : (
+                <select
+                  value={cluster}
+                  onChange={(e) => {
+                    if (e.target.value === '__custom__') {
+                      setShowCustomCluster(true)
+                      setCluster('')
+                    } else {
+                      setCluster(e.target.value)
+                    }
+                  }}
+                  className={cn(
+                    'h-8 w-full cursor-pointer rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50',
+                    !cluster && 'text-muted-foreground'
+                  )}
+                >
+                  <option value="" disabled>
+                    เลือกหมวดหมู่
                   </option>
-                ))}
-              </select>
+                  {DEFAULT_CLUSTERS.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                  <option value="__custom__">+ เพิ่มหมวดหมู่ใหม่...</option>
+                </select>
+              )}
             </div>
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-slate-700">ประเภท</label>

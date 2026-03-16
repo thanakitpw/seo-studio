@@ -41,7 +41,7 @@ export default function Pagination({
 
   return (
     <div className="flex items-center justify-between py-4">
-      <span className="text-sm text-slate-500">
+      <span className="text-sm text-muted-foreground">
         แสดง {start}-{end} จาก {total}
       </span>
 
@@ -50,19 +50,18 @@ export default function Pagination({
           onClick={() => onPageChange(page - 1)}
           disabled={page <= 1}
           className={cn(
-            'flex h-[30px] items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-600',
-            'hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed'
+            'flex h-8 cursor-pointer items-center gap-1 rounded-lg border border-border bg-white px-3 text-sm text-muted-foreground',
+            'transition-colors hover:bg-muted hover:text-foreground',
+            'disabled:cursor-not-allowed disabled:opacity-40'
           )}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>chevron_left</span>
           ก่อนหน้า
         </button>
 
         {getPageNumbers().map((p, i) =>
           p === 'ellipsis' ? (
-            <span key={`ellipsis-${i}`} className="flex h-8 w-8 items-center justify-center text-sm text-slate-400">
+            <span key={`ellipsis-${i}`} className="flex h-8 w-8 items-center justify-center text-sm text-muted-foreground">
               ...
             </span>
           ) : (
@@ -70,10 +69,10 @@ export default function Pagination({
               key={p}
               onClick={() => onPageChange(p)}
               className={cn(
-                'flex h-8 w-8 items-center justify-center rounded-lg text-sm font-medium',
+                'flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-sm font-medium transition-colors',
                 p === page
                   ? 'bg-primary text-white'
-                  : 'border border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
               )}
             >
               {p}
@@ -85,14 +84,13 @@ export default function Pagination({
           onClick={() => onPageChange(page + 1)}
           disabled={page >= totalPages}
           className={cn(
-            'flex h-[30px] items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-600',
-            'hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed'
+            'flex h-8 cursor-pointer items-center gap-1 rounded-lg border border-border bg-white px-3 text-sm text-muted-foreground',
+            'transition-colors hover:bg-muted hover:text-foreground',
+            'disabled:cursor-not-allowed disabled:opacity-40'
           )}
         >
           ถัดไป
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
+          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>chevron_right</span>
         </button>
       </div>
     </div>
