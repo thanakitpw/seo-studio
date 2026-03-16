@@ -1,114 +1,149 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 interface SidebarProps {
   projectId?: string
 }
 
-const navItems = [
-  { label: 'ภาพรวม', icon: 'dashboard', path: 'dashboard' },
-  { label: 'คำหลัก', icon: 'key', path: 'keywords' },
+const projectNavItems = [
+  { label: 'ภาพรวม', icon: 'grid_view', path: 'dashboard' },
+  { label: 'คำหลัก', icon: 'search', path: 'keywords' },
   { label: 'บทความ', icon: 'description', path: 'articles' },
   { label: 'รูปปก', icon: 'image', path: 'images' },
   { label: 'ตั้งค่า', icon: 'settings', path: 'settings' },
 ]
 
+const homeNavItems = [
+  { label: 'โปรเจคทั้งหมด', icon: 'folder', path: '/projects' },
+  { label: 'ภาพรวม', icon: 'grid_view', path: '/projects/overview' },
+]
+
+// Mock data — จะเปลี่ยนเป็น fetch จาก /api/projects ภายหลัง
 const mockProjects = [
-  { id: '1', name: 'Best Solutions' },
-  { id: '2', name: 'Tech Blog' },
+  { id: '1', name: 'Best Solutions', initials: 'BS', color: 'bg-[#6467f2]' },
+  { id: '2', name: 'Client A', initials: 'CA', color: 'bg-[#f59e0b]' },
+  { id: '3', name: 'Client B', initials: 'CB', color: 'bg-[#10b981]' },
 ]
 
 export default function Sidebar({ projectId }: SidebarProps) {
-  const [collapsed, setCollapsed] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
+
+  const isProjectNav = !!projectId
+  const navItems = isProjectNav ? projectNavItems : homeNavItems
 
   const isActive = (path: string) => {
-    if (!projectId) return false
-    return pathname.includes(`/projects/${projectId}/${path}`)
+    if (isProjectNav) {
+      return pathname.includes(`/projects/${projectId}/${path}`)
+    }
+    // Home nav: exact match or startsWith
+    if (path === '/projects') {
+      return pathname === '/projects' || pathname === '/projects/'
+    }
+    return pathname.startsWith(path)
+  }
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' })
+      router.push('/login')
+    } catch {
+      // ignore
+    }
   }
 
   return (
-    <aside
-      className={`${
-        collapsed ? 'w-16' : 'w-60'
-      } bg-white border-r border-slate-200 flex flex-col shrink-0 transition-all duration-200`}
-    >
-      {/* Hamburger toggle */}
-      <div className="h-14 flex items-center px-3 border-b border-slate-200">
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="size-8 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
-        >
-          <span className="material-symbols-outlined text-[20px] text-slate-600">
-            {collapsed ? 'menu_open' : 'menu'}
-          </span>
-        </button>
-        {!collapsed && (
-          <span className="ml-2 text-sm font-semibold text-slate-900">SEO Studio</span>
-        )}
+    <aside className="w-60 bg-white border-r border-slate-200 flex flex-col shrink-0 h-full">
+      {/* Logo */}
+      <div className="px-4 pt-5 pb-4 flex items-center gap-3">
+        <div className="size-9 rounded-full bg-gradient-to-br from-[#6467f2] to-[#8b5cf6] flex items-center justify-center text-white shrink-0">
+          <span className="material-symbols-outlined text-[20px]">edit_note</span>
+        </div>
+        <div>
+          <div className="text-sm font-semibold text-slate-900">SEO Studio</div>
+          <div className="text-xs text-slate-400">v2.0</div>
+        </div>
       </div>
 
-      {/* Project Navigation */}
-      {projectId && (
-        <nav className="flex-1 px-2 py-3 space-y-0.5">
-          {navItems.map((item) => {
-            const active = isActive(item.path)
+      {/* Navigation */}
+      <nav className="px-3 space-y-0.5 flex-1">
+        {navItems.map((item) => {
+          const href = isProjectNav
+            ? `/projects/${projectId}/${item.path}`
+            : item.path
+          const active = isActive(item.path)
+          return (
+            <Link
+              key={item.path}
+              href={href}
+              className={`flex items-center gap-3 h-10 px-3 rounded-lg text-sm transition-colors ${
+                active
+                  ? 'bg-primary/10 text-primary font-medium'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+              }`}
+            >
+              <span
+                className={`material-symbols-outlined text-[20px] ${
+                  active ? 'text-primary' : 'text-slate-400'
+                }`}
+              >
+                {item.icon}
+              </span>
+              <span>{item.label}</span>
+            </Link>
+          )
+        })}
+      </nav>
+
+      {/* PROJECTS Section */}
+      <div className="px-3 pb-2">
+        <p className="px-3 mb-2 text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+          PROJECTS
+        </p>
+        <div className="space-y-0.5">
+          {mockProjects.map((project) => {
+            const active = projectId === project.id
             return (
               <Link
-                key={item.path}
-                href={`/projects/${projectId}/${item.path}`}
+                key={project.id}
+                href={`/projects/${project.id}/dashboard`}
                 className={`flex items-center gap-3 h-9 px-3 rounded-lg text-sm transition-colors ${
                   active
                     ? 'bg-primary/10 text-primary font-medium'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                    : 'text-slate-600 hover:bg-slate-50'
                 }`}
               >
-                <span className={`material-symbols-outlined text-[20px] ${active ? 'text-primary' : ''}`}>
-                  {item.icon}
-                </span>
-                {!collapsed && <span>{item.label}</span>}
+                <div
+                  className={`size-6 rounded-full ${project.color} flex items-center justify-center text-white text-[10px] font-semibold shrink-0`}
+                >
+                  {project.initials}
+                </div>
+                <span className="truncate">{project.name}</span>
               </Link>
             )
           })}
-        </nav>
-      )}
+        </div>
+      </div>
 
-      {!projectId && <div className="flex-1" />}
-
-      {/* Project List */}
-      <div className="border-t border-slate-200 px-2 py-3">
-        {!collapsed && (
-          <p className="px-3 mb-2 text-xs font-medium text-slate-400 uppercase tracking-wider">
-            โปรเจค
-          </p>
-        )}
-        <div className="space-y-0.5">
-          {mockProjects.map((project) => (
-            <Link
-              key={project.id}
-              href={`/projects/${project.id}/dashboard`}
-              className={`flex items-center gap-3 h-8 px-3 rounded-lg text-sm transition-colors ${
-                projectId === project.id
-                  ? 'bg-primary/10 text-primary font-medium'
-                  : 'text-slate-600 hover:bg-slate-50'
-              }`}
-            >
-              <span className="material-symbols-outlined text-[18px]">folder</span>
-              {!collapsed && (
-                <span className="truncate">{project.name}</span>
-              )}
-            </Link>
-          ))}
-          <Link
-            href="/projects/new"
-            className="flex items-center gap-3 h-8 px-3 rounded-lg text-sm text-primary hover:bg-primary/5 transition-colors"
+      {/* User Profile */}
+      <div className="border-t border-slate-200 px-3 py-3">
+        <div className="flex items-center gap-3 px-3">
+          <div className="size-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-semibold shrink-0">
+            TK
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-medium text-slate-900 truncate">Thanakit</div>
+            <div className="text-xs text-slate-400">Admin</div>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="size-8 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors text-slate-400 hover:text-slate-600 cursor-pointer shrink-0"
+            title="ออกจากระบบ"
           >
-            <span className="material-symbols-outlined text-[18px]">add</span>
-            {!collapsed && <span>สร้างใหม่</span>}
-          </Link>
+            <span className="material-symbols-outlined text-[20px]">logout</span>
+          </button>
         </div>
       </div>
     </aside>
