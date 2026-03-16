@@ -102,14 +102,18 @@ export default function Sidebar({ projectId, collapsed = false, onToggle }: Side
       >
         {/* Logo + Toggle */}
         <div className={cn('flex items-center pt-5 pb-4', collapsed ? 'px-3 flex-col gap-2' : 'px-4 gap-3')}>
-          <div className="size-9 rounded-full bg-gradient-to-br from-[#6467f2] to-[#8b5cf6] flex items-center justify-center text-white shrink-0">
+          <Link
+            href="/projects"
+            className="size-9 rounded-full bg-gradient-to-br from-[#6467f2] to-[#8b5cf6] flex items-center justify-center text-white shrink-0 hover:opacity-90 transition-opacity cursor-pointer"
+            title="กลับไปหน้าโปรเจค"
+          >
             <span className="material-symbols-outlined text-[20px]">edit_note</span>
-          </div>
+          </Link>
           {!collapsed && (
-            <div className="flex-1">
+            <Link href="/projects" className="flex-1 cursor-pointer hover:opacity-80 transition-opacity">
               <div className="text-sm font-semibold text-foreground">SEO Studio</div>
               <div className="text-xs text-muted-foreground">v2.0</div>
-            </div>
+            </Link>
           )}
           <button
             onClick={onToggle}

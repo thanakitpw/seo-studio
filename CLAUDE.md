@@ -309,11 +309,16 @@ POST   /api/upload/cover                       — upload → WebP → Supabase 
 
 **Phase 2 (Layout + Navigation):** 6/13 tasks
 - 2.2 Projects API (CRUD + test-connection): ✅
-**Phase 3 (Core Pages):** 0/28 tasks
+**Phase 3 (Core Pages):** 5/28 tasks
+- 3.1 Project Dashboard: ✅ (StatsCards, CategoryProgress, RecentActivity, TokenUsage — real Supabase data)
+- 3.2 Keywords API: ✅ (GET with pagination/filter/search, POST, PATCH)
+- 3.3 Keyword List Page: ✅ (KeywordTable, FilterBar, Pagination — ตาม Paper design)
+- 3.4 Add Keyword Modal: ✅ (AddKeywordModal — form + auto slug + POST /api/keywords)
+- 3.5 Import CSV Modal: ✅ (ImportCsvModal 3-step wizard + CSV template API + bulk import API)
 **Phase 4 (AI Pipeline):** 0/10 tasks
 **Phase 5 (Editor + Cover):** 0/20 tasks
 **Phase 6 (Publish + Settings):** 0/11 tasks
 **Phase 7 (Polish + Build):** 0/12 tasks
-**Overall:** 18/106 tasks (17%)
+**Overall:** 23/106 tasks (22%)
 
 _อัพเดท section นี้ทุกครั้งที่ task เสร็จ_

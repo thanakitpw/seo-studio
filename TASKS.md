@@ -98,10 +98,10 @@
 ### 3.1 Project List Page
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 3.1.1 | Project List page (server component, fetch projects) | Frontend | `src/app/projects/page.tsx` | 👤 เห็น cards |
-| 3.1.2 | ProjectCard component | Frontend | `src/components/projects/ProjectCard.tsx` | 👤 แสดง name, domain, stats |
-| 3.1.3 | Empty state (ยังไม่มีโปรเจค) | Frontend | (ใน page.tsx) | 👤 ลบ project ทั้งหมด → เห็น empty state |
-| 3.1.4 | New project card (dashed border, คลิกไป /projects/new) | Frontend | (ใน page.tsx) | 👤 คลิก → ไป /projects/new |
+| 3.1.1 | [x] Project List page (server component, fetch projects) | Frontend | `src/app/projects/page.tsx` | 👤 เห็น cards |
+| 3.1.2 | [x] ProjectCard component (inline ใน page.tsx) | Frontend | `src/app/projects/page.tsx` | 👤 แสดง name, domain, stats |
+| 3.1.3 | [x] Empty state (ยังไม่มีโปรเจค) | Frontend | (ใน page.tsx) | 👤 ลบ project ทั้งหมด → เห็น empty state |
+| 3.1.4 | [x] New project card (dashed border, คลิกไป /projects/new) | Frontend | (ใน page.tsx) | 👤 คลิก → ไป /projects/new |
 
 **✅ Checkpoint 3.1:**
 - 👤 เห็น project cards ตามใน Paper design
@@ -114,12 +114,12 @@
 ### 3.2 New Project Page
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 3.2.1 | New Project page (3-step wizard container) | Frontend | `src/app/projects/new/page.tsx` | 👤 เห็น step indicator |
-| 3.2.2 | Step 1: ข้อมูลทั่วไป (name, domain, slug auto-gen) | Frontend | `src/components/projects/NewProjectForm.tsx` | 👤 slug auto-generate จากชื่อ |
-| 3.2.3 | Step 2: การเชื่อมต่อ (toggle Supabase/REST API + fields) | Frontend | (ใน NewProjectForm.tsx) | 👤 toggle → fields เปลี่ยน |
-| 3.2.4 | Step 2: ปุ่มทดสอบการเชื่อมต่อ | Frontend | (ใน NewProjectForm.tsx) | 👤 กด → แสดง success/fail |
-| 3.2.5 | Step 3: ตั้งค่าเนื้อหา (brand voice, rules, inventory, cover style) | Frontend | (ใน NewProjectForm.tsx) | 👤 กรอกได้ |
-| 3.2.6 | Submit → POST /api/projects → redirect ไป dashboard | Frontend | (ใน NewProjectForm.tsx) | 👤 สร้าง → เห็นใน list |
+| 3.2.1 | [x] New Project page (3-step wizard container) | Frontend | `src/app/projects/new/page.tsx` | 👤 เห็น step indicator |
+| 3.2.2 | [x] Step 1: ข้อมูลทั่วไป (name, domain, slug auto-gen) | Frontend | `src/components/projects/NewProjectForm.tsx` | 👤 slug auto-generate จากชื่อ |
+| 3.2.3 | [x] Step 2: การเชื่อมต่อ (toggle Supabase/REST API + fields) | Frontend | (ใน NewProjectForm.tsx) | 👤 toggle → fields เปลี่ยน |
+| 3.2.4 | [x] Step 2: ปุ่มทดสอบการเชื่อมต่อ | Frontend | (ใน NewProjectForm.tsx) | 👤 กด → แสดง success/fail |
+| 3.2.5 | [x] Step 3: ตั้งค่าเนื้อหา (brand voice, rules, inventory, cover style) | Frontend | (ใน NewProjectForm.tsx) | 👤 กรอกได้ |
+| 3.2.6 | [x] Submit → POST /api/projects → redirect ไป dashboard | Frontend | (ใน NewProjectForm.tsx) | 👤 สร้าง → เห็นใน list |
 
 **✅ Checkpoint 3.2:**
 - 👤 สร้างโปรเจคใหม่ได้ครบ 3 steps
@@ -133,11 +133,11 @@
 ### 3.3 Project Dashboard
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 3.3.1 | Dashboard page (server component, fetch stats) | Frontend | `src/app/projects/[id]/dashboard/page.tsx` | 👤 เห็น stats cards |
-| 3.3.2 | Stats cards (4 cards: ทั้งหมด, เผยแพร่, ร่าง, รอ) | Frontend | `src/components/dashboard/StatsCards.tsx` | 👤 ตัวเลขถูกต้อง |
-| 3.3.3 | หมวดหมู่ progress section | Frontend | `src/components/dashboard/CategoryProgress.tsx` | 👤 progress bars แสดงถูก |
-| 3.3.4 | กิจกรรมล่าสุด section | Frontend | `src/components/dashboard/RecentActivity.tsx` | 👤 แสดง 5 items ล่าสุด |
-| 3.3.5 | Token usage card | Frontend | `src/components/dashboard/TokenUsage.tsx` | 👤 แสดง total + avg cost |
+| 3.3.1 | [x] Dashboard page (server component, fetch stats) | Frontend | `src/app/projects/[id]/dashboard/page.tsx` | 👤 เห็น stats cards |
+| 3.3.2 | [x] Stats cards (4 cards: ทั้งหมด, เผยแพร่, ร่าง, รอ) | Frontend | `src/components/dashboard/StatsCards.tsx` | 👤 ตัวเลขถูกต้อง |
+| 3.3.3 | [x] หมวดหมู่ progress section | Frontend | `src/components/dashboard/CategoryProgress.tsx` | 👤 progress bars แสดงถูก |
+| 3.3.4 | [x] กิจกรรมล่าสุด section | Frontend | `src/components/dashboard/RecentActivity.tsx` | 👤 แสดง 5 items ล่าสุด |
+| 3.3.5 | [x] Token usage card | Frontend | `src/components/dashboard/TokenUsage.tsx` | 👤 แสดง total + avg cost |
 
 **✅ Checkpoint 3.3:**
 - 👤 Dashboard แสดงข้อมูลถูกต้องตาม DB
@@ -149,16 +149,16 @@
 ### 3.4 Keyword List Page
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 3.4.1 | Keywords API — เพิ่ม project_id filter | Backend | แก้ `src/app/api/keywords/route.ts` | 🤖 curl ?project_id=xxx → filtered |
-| 3.4.2 | Keyword List page (server component) | Frontend | `src/app/projects/[id]/keywords/page.tsx` | 👤 เห็น table |
-| 3.4.3 | KeywordTable component (flat data table) | Frontend | `src/components/keywords/KeywordTable.tsx` | 👤 columns ครบ |
-| 3.4.4 | Filter bar (หมวดหมู่, สถานะ, priority, ประเภท dropdowns) | Frontend | `src/components/keywords/FilterBar.tsx` | 👤 filter → table update |
-| 3.4.5 | Sort columns (คลิก header → sort asc/desc) | Frontend | (ใน KeywordTable) | 👤 คลิก "ปริมาณ" → sort ถูก |
-| 3.4.6 | KD bar component | Frontend | `src/components/ui/KdBar.tsx` | 👤 สีถูก (เขียว/ส้ม/แดง) |
-| 3.4.7 | Status badge component | Frontend | `src/components/ui/StatusBadge.tsx` | 👤 สีถูกตาม status |
-| 3.4.8 | Pagination (20 rows/page) | Frontend | `src/components/keywords/Pagination.tsx` | 👤 เปลี่ยนหน้าได้ |
-| 3.4.9 | Checkbox column + bulk actions bar | Frontend | (ใน KeywordTable) | 👤 เลือก 3 rows → แสดง action bar |
-| 3.4.10 | Search input (ค้นหาจาก title/keyword) | Frontend | (ใน FilterBar) | 👤 พิมพ์ "ai" → filter ถูก |
+| 3.4.1 | [x] Keywords API — เพิ่ม project_id filter | Backend | `src/app/api/keywords/route.ts` | 🤖 curl ?project_id=xxx → filtered |
+| 3.4.2 | [x] Keyword List page (client component) | Frontend | `src/app/projects/[id]/keywords/page.tsx` | 👤 เห็น table |
+| 3.4.3 | [x] KeywordTable component (flat data table) | Frontend | `src/components/keywords/KeywordTable.tsx` | 👤 columns ครบ |
+| 3.4.4 | [x] Filter bar (หมวดหมู่, สถานะ, priority, ประเภท dropdowns) | Frontend | `src/components/keywords/FilterBar.tsx` | 👤 filter → table update |
+| 3.4.5 | [x] Sort columns (คลิก header → sort asc/desc) | Frontend | (ใน KeywordTable) | 👤 คลิก "ปริมาณ" → sort ถูก |
+| 3.4.6 | [x] KD bar component (inline ใน KeywordTable) | Frontend | `src/components/keywords/KeywordTable.tsx` | 👤 สีถูก (เขียว/ส้ม/แดง) |
+| 3.4.7 | [x] Status badge component (inline ใน KeywordTable) | Frontend | `src/components/keywords/KeywordTable.tsx` | 👤 สีถูกตาม status |
+| 3.4.8 | [x] Pagination (20 rows/page) | Frontend | `src/components/keywords/Pagination.tsx` | 👤 เปลี่ยนหน้าได้ |
+| 3.4.9 | [x] Checkbox column + bulk actions bar | Frontend | (ใน KeywordTable) | 👤 เลือก 3 rows → แสดง action bar |
+| 3.4.10 | [x] Search input (ค้นหาจาก title/keyword) | Frontend | (ใน keywords page) | 👤 พิมพ์ "ai" → filter ถูก |
 
 **✅ Checkpoint 3.4:**
 - 👤 เห็น keyword table ตาม Paper design
@@ -174,14 +174,14 @@
 ### 3.5 Keyword Modals
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 3.5.1 | Add Keyword Modal (single keyword form) | Frontend | `src/components/keywords/AddKeywordModal.tsx` | 👤 กรอก → บันทึก → เห็นในตาราง |
-| 3.5.2 | Slug auto-generate จาก keyword | Frontend | `src/lib/slug.ts` | 🤖 "ai automation คืออะไร" → "ai-automation-คืออะไร" |
-| 3.5.3 | Import CSV Modal — Step 1 (upload + template download) | Frontend | `src/components/keywords/ImportCsvModal.tsx` | 👤 upload .csv ได้, download template ได้ |
-| 3.5.4 | Import CSV Modal — Step 2 (preview + duplicate highlight) | Frontend | (ใน ImportCsvModal) | 👤 เห็น preview table, slug ซ้ำ highlight amber |
-| 3.5.5 | Import CSV Modal — Step 3 (confirm + import) | Frontend | (ใน ImportCsvModal) | 👤 กด import → เพิ่มใน DB → refresh table |
-| 3.5.6 | CSV template download route | Backend | `src/app/api/keywords/template/route.ts` | 🤖 GET → download .csv |
-| 3.5.7 | CSV bulk import route | Backend | `src/app/api/keywords/import/route.ts` | 🤖 POST file → rows ใน DB |
-| 3.5.8 | Dropdown button "+ เพิ่มคำหลัก" (3 options) | Frontend | (ใน keywords page) | 👤 กด → เห็น 3 ตัวเลือก |
+| 3.5.1 | [x] Add Keyword Modal (single keyword form) | Frontend | `src/components/keywords/AddKeywordModal.tsx` | 👤 กรอก → บันทึก → เห็นในตาราง |
+| 3.5.2 | [x] Slug auto-generate จาก keyword | Frontend | `src/lib/slug.ts` | 🤖 "ai automation คืออะไร" → "ai-automation-คืออะไร" |
+| 3.5.3 | [x] Import CSV Modal — Step 1 (upload + template download) | Frontend | `src/components/keywords/ImportCsvModal.tsx` | 👤 upload .csv ได้, download template ได้ |
+| 3.5.4 | [x] Import CSV Modal — Step 2 (preview + duplicate highlight) | Frontend | (ใน ImportCsvModal) | 👤 เห็น preview table, slug ซ้ำ highlight amber |
+| 3.5.5 | [x] Import CSV Modal — Step 3 (confirm + import) | Frontend | (ใน ImportCsvModal) | 👤 กด import → เพิ่มใน DB → refresh table |
+| 3.5.6 | [x] CSV template download route | Backend | `src/app/api/keywords/template/route.ts` | 🤖 GET → download .csv |
+| 3.5.7 | [x] CSV bulk import route | Backend | `src/app/api/keywords/import/route.ts` | 🤖 POST file → rows ใน DB |
+| 3.5.8 | [x] Dropdown button "+ เพิ่มคำหลัก" (integrated ใน keywords page) | Frontend | (ใน keywords page) | 👤 กด → เห็น modal |
 
 **✅ Checkpoint 3.5:**
 - 👤 เพิ่มคำหลักทีละตัวได้

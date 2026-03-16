@@ -45,7 +45,7 @@ export type KeywordStatus =
   | 'published'
 
 export type ContentType = 'Blog' | 'Pillar Page' | 'Landing Page'
-export type Priority = 'High' | 'Medium'
+export type Priority = 'High' | 'Medium' | 'Low'
 
 export interface Keyword {
   id: string

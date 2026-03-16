@@ -214,13 +214,13 @@ export default async function ProjectsPage() {
                 </div>
               </CardContent>
 
-              <CardFooter className="flex items-center justify-between pt-0">
-                <p className="text-[11px] text-muted-foreground">
+              <CardFooter className="flex items-center justify-between border-t border-border pt-4">
+                <p className="text-xs text-muted-foreground">
                   อัพเดท {formatRelativeTime(project.updated_at)}
                 </p>
-                <span className="inline-flex items-center gap-1 text-xs font-medium text-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
                   เปิดโปรเจค
-                  <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                 </span>
               </CardFooter>
             </Card>

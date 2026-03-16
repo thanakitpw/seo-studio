@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Sidebar from './Sidebar'
+import Breadcrumb from './Breadcrumb'
 
 export default function ProjectsLayoutClient({
   children,
@@ -11,6 +12,13 @@ export default function ProjectsLayoutClient({
 }) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
+
+  // Full-screen pages without sidebar
+  const isFullScreen = pathname === '/projects/new'
+
+  if (isFullScreen) {
+    return <>{children}</>
+  }
 
   const segments = pathname.split('/')
   const projectIndex = segments.indexOf('projects')
@@ -27,6 +35,11 @@ export default function ProjectsLayoutClient({
         onToggle={() => setCollapsed(!collapsed)}
       />
       <main className="flex-1 bg-[#f6f6f8] overflow-auto">
+        {projectId && (
+          <div className="px-8 pt-6">
+            <Breadcrumb projectId={projectId} />
+          </div>
+        )}
         {children}
       </main>
     </div>

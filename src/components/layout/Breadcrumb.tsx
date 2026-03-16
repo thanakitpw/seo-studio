@@ -2,60 +2,97 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { cn } from '@/lib/utils'
 
-const segmentLabels: Record<string, string> = {
-  projects: 'โปรเจค',
-  dashboard: 'ภาพรวม',
-  keywords: 'คำหลัก',
+const pageLabels: Record<string, string> = {
+  dashboard: 'แดชบอร์ด',
+  keywords: 'คีย์เวิร์ด',
   articles: 'บทความ',
   images: 'รูปปก',
   settings: 'ตั้งค่า',
   new: 'สร้างใหม่',
+  brief: 'Brief',
+  writing: 'AI Writing',
+  edit: 'แก้ไข',
+  publish: 'เผยแพร่',
 }
 
-export default function Breadcrumb() {
+interface BreadcrumbProps {
+  projectId?: string
+}
+
+export default function Breadcrumb({ projectId }: BreadcrumbProps) {
   const pathname = usePathname()
-  const segments = pathname.split('/').filter(Boolean)
+  const [projectName, setProjectName] = useState<string>('')
 
-  // Build breadcrumb items
-  const items: { label: string; href: string }[] = []
-
-  for (let i = 0; i < segments.length; i++) {
-    const segment = segments[i]
-    const href = '/' + segments.slice(0, i + 1).join('/')
-
-    // Skip [id] segment as standalone — it will be shown as project name
-    if (i > 0 && segments[i - 1] === 'projects' && !segmentLabels[segment]) {
-      // This is a project ID — show as project name (mock)
-      items.push({ label: 'Best Solutions', href })
-      continue
+  useEffect(() => {
+    if (!projectId) return
+    async function fetchProject() {
+      try {
+        const res = await fetch(`/api/projects/${projectId}`)
+        if (res.ok) {
+          const data = await res.json()
+          setProjectName(data.name)
+        }
+      } catch {
+        // ignore
+      }
     }
+    fetchProject()
+  }, [projectId])
 
-    const label = segmentLabels[segment] ?? segment
-    items.push({ label, href })
-  }
+  if (!projectId) return null
 
-  if (items.length <= 1) return null
+  // Parse current page from pathname
+  const segments = pathname.split('/').filter(Boolean)
+  const projectIndex = segments.indexOf('projects')
+  const pageSegments = segments.slice(projectIndex + 2) // after /projects/[id]/
 
   return (
-    <nav className="flex items-center gap-1.5 text-sm">
-      {items.map((item, index) => {
-        const isLast = index === items.length - 1
+    <nav className="flex items-center gap-1.5 text-sm mb-6">
+      <Link
+        href="/projects"
+        className="text-muted-foreground hover:text-foreground transition-colors"
+      >
+        โปรเจค
+      </Link>
+
+      <span className="material-symbols-outlined text-[14px] text-muted-foreground/50">
+        chevron_right
+      </span>
+
+      {pageSegments.length > 0 ? (
+        <Link
+          href={`/projects/${projectId}/dashboard`}
+          className="text-muted-foreground hover:text-foreground transition-colors"
+        >
+          {projectName || '...'}
+        </Link>
+      ) : (
+        <span className="text-foreground font-medium">
+          {projectName || '...'}
+        </span>
+      )}
+
+      {pageSegments.map((segment, i) => {
+        const isLast = i === pageSegments.length - 1
+        const label = pageLabels[segment] ?? segment
+        const href = `/projects/${projectId}/${pageSegments.slice(0, i + 1).join('/')}`
+
         return (
-          <span key={item.href} className="flex items-center gap-1.5">
-            {index > 0 && (
-              <span className="material-symbols-outlined text-[16px] text-slate-300">
-                chevron_right
-              </span>
-            )}
+          <span key={segment + i} className="flex items-center gap-1.5">
+            <span className="material-symbols-outlined text-[14px] text-muted-foreground/50">
+              chevron_right
+            </span>
             {isLast ? (
-              <span className="text-slate-900 font-medium">{item.label}</span>
+              <span className={cn('font-medium text-foreground')}>{label}</span>
             ) : (
               <Link
-                href={item.href}
-                className="text-slate-500 hover:text-slate-700 transition-colors"
+                href={href}
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                {item.label}
+                {label}
               </Link>
             )}
           </span>
