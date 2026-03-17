@@ -301,11 +301,11 @@
 ### 6.1 Publish Flow
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 6.1.1 | Refactor publish route — ตรวจ connection_type + ใช้ credentials ของ project | Backend | `src/app/api/publish/route.ts` | 🤖 Supabase: POST blog_posts, REST: POST endpoint |
-| 6.1.2 | Publish page (checklist + JSON preview + confirm) | Frontend | `src/app/projects/[id]/articles/[slug]/publish/page.tsx` | 👤 เห็น checklist + payload |
-| 6.1.3 | แสดง target (project name + connection type) | Frontend | (ใน publish page) | 👤 เห็น "via Supabase" หรือ "via REST API" |
-| 6.1.4 | กดเผยแพร่ → POST /api/publish → success toast | Frontend | (ใน publish page) | 👤 กด → toast "เผยแพร่แล้ว" |
-| 6.1.5 | Update keyword status → "published" | Backend | (ใน publish route) | 🤖 keyword.status = "published" |
+| 6.1.1 | [x] Refactor publish route — ตรวจ connection_type + ใช้ credentials ของ project | Backend | `src/app/api/publish/route.ts` | 🤖 Supabase: POST blog_posts, REST: POST endpoint |
+| 6.1.2 | [x] Publish page (checklist + JSON preview + confirm) | Frontend | `src/app/projects/[id]/articles/[slug]/publish/page.tsx` | 👤 เห็น checklist + payload |
+| 6.1.3 | [x] แสดง target (project name + connection type) | Frontend | (ใน publish page) | 👤 เห็น "via Supabase" หรือ "via REST API" |
+| 6.1.4 | [x] กดเผยแพร่ → POST /api/publish → success toast | Frontend | (ใน publish page) | 👤 กด → toast "เผยแพร่แล้ว" |
+| 6.1.5 | [x] Update keyword status → "published" | Backend | (ใน publish route) | 🤖 keyword.status = "published" |
 
 **✅ Checkpoint 6.1:**
 - 👤 เห็น publish preview ตรงกับ Paper design
@@ -321,12 +321,12 @@
 ### 6.2 Project Settings
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 6.2.1 | Settings page (4 tabs layout) | Frontend | `src/app/projects/[id]/settings/page.tsx` | 👤 เห็น 4 tabs |
-| 6.2.2 | Tab: การเชื่อมต่อ (Supabase/REST API toggle + fields + test) | Frontend | `src/components/settings/ConnectionTab.tsx` | 👤 toggle → fields เปลี่ยน |
-| 6.2.3 | Tab: เนื้อหา (brand voice, writing rules, site inventory textareas) | Frontend | `src/components/settings/ContentTab.tsx` | 👤 แก้ → save → reload ยังอยู่ |
-| 6.2.4 | Tab: รูปปก (default style, fal.ai model) | Frontend | `src/components/settings/CoverTab.tsx` | 👤 ตั้งค่า → ใช้ใน generate |
-| 6.2.5 | Tab: ทั่วไป (ชื่อ, domain, archive/delete) | Frontend | `src/components/settings/GeneralTab.tsx` | 👤 แก้ชื่อ → save → sidebar update |
-| 6.2.6 | Test connection button ทำงานจริง | Frontend + Backend | (ใน ConnectionTab) | 👤 กด → success/fail ถูกต้อง |
+| 6.2.1 | [x] Settings page (4 tabs layout) | Frontend | `src/app/projects/[id]/settings/page.tsx` | 👤 เห็น 4 tabs |
+| 6.2.2 | [x] Tab: การเชื่อมต่อ (Supabase/REST API toggle + fields + test) | Frontend | `src/components/settings/ConnectionTab.tsx` | 👤 toggle → fields เปลี่ยน |
+| 6.2.3 | [x] Tab: เนื้อหา (brand voice, writing rules, site inventory textareas) | Frontend | `src/components/settings/ContentTab.tsx` | 👤 แก้ → save → reload ยังอยู่ |
+| 6.2.4 | [x] Tab: รูปปก (default style, fal.ai model) | Frontend | `src/components/settings/CoverTab.tsx` | 👤 ตั้งค่า → ใช้ใน generate |
+| 6.2.5 | [x] Tab: ทั่วไป (ชื่อ, domain, archive/delete) | Frontend | `src/components/settings/GeneralTab.tsx` | 👤 แก้ชื่อ → save → sidebar update |
+| 6.2.6 | [x] Test connection button ทำงานจริง | Frontend + Backend | (ใน ConnectionTab) | 👤 กด → success/fail ถูกต้อง |
 
 **✅ Checkpoint 6.2:**
 - 👤 ทุก tab save + reload ข้อมูลถูก
