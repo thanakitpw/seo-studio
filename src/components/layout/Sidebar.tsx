@@ -5,12 +5,6 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
 import type { Project } from '@/types'
 
@@ -93,7 +87,6 @@ export default function Sidebar({ projectId, collapsed = false, onToggle }: Side
   }
 
   return (
-    <TooltipProvider>
       <aside
         className={cn(
           'bg-white border-r border-border flex flex-col shrink-0 h-full transition-all duration-200',
@@ -223,20 +216,17 @@ export default function Sidebar({ projectId, collapsed = false, onToggle }: Side
                   <div className="text-sm font-medium text-foreground truncate">Thanakit</div>
                   <div className="text-xs text-muted-foreground">Admin</div>
                 </div>
-                <Tooltip>
-                  <TooltipTrigger
-                    onClick={handleLogout}
-                    className="inline-flex shrink-0 items-center justify-center size-8 rounded-lg text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
-                  >
-                    <span className="material-symbols-outlined text-[20px]">logout</span>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">ออกจากระบบ</TooltipContent>
-                </Tooltip>
+                <button
+                  onClick={handleLogout}
+                  className="inline-flex shrink-0 items-center justify-center size-8 rounded-lg text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+                  title="ออกจากระบบ"
+                >
+                  <span className="material-symbols-outlined text-[20px]">logout</span>
+                </button>
               </>
             )}
           </div>
         </div>
       </aside>
-    </TooltipProvider>
   )
 }

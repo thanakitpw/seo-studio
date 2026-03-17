@@ -25,22 +25,36 @@ interface BreadcrumbProps {
 export default function Breadcrumb({ projectId }: BreadcrumbProps) {
   const pathname = usePathname()
   const [projectName, setProjectName] = useState<string>('')
+  const [articleTitle, setArticleTitle] = useState<string>('')
 
   useEffect(() => {
     if (!projectId) return
-    async function fetchProject() {
+    async function fetchData() {
       try {
-        const res = await fetch(`/api/projects/${projectId}`)
-        if (res.ok) {
-          const data = await res.json()
+        // Fetch project name
+        const projRes = await fetch(`/api/projects/${projectId}`)
+        if (projRes.ok) {
+          const data = await projRes.json()
           setProjectName(data.name)
+        }
+
+        // Fetch article title if in articles path
+        const segments = pathname.split('/').filter(Boolean)
+        const articlesIdx = segments.indexOf('articles')
+        if (articlesIdx !== -1 && segments[articlesIdx + 1]) {
+          const articleSlug = decodeURIComponent(segments[articlesIdx + 1])
+          const artRes = await fetch(`/api/articles/${encodeURIComponent(articleSlug)}`)
+          if (artRes.ok) {
+            const artData = await artRes.json()
+            if (artData.title) setArticleTitle(artData.title)
+          }
         }
       } catch {
         // ignore
       }
     }
-    fetchProject()
-  }, [projectId])
+    fetchData()
+  }, [projectId, pathname])
 
   if (!projectId) return null
 
@@ -77,7 +91,10 @@ export default function Breadcrumb({ projectId }: BreadcrumbProps) {
 
       {pageSegments.map((segment, i) => {
         const isLast = i === pageSegments.length - 1
-        const label = pageLabels[segment] ?? segment
+        const decoded = decodeURIComponent(segment)
+        // ถ้า segment เป็น article slug → แสดงชื่อบทความแทน
+        const isArticleSlug = i > 0 && pageSegments[i - 1] === 'articles'
+        const label = pageLabels[segment] ?? (isArticleSlug && articleTitle ? articleTitle : decoded.replace(/-/g, ' '))
         const href = `/projects/${projectId}/${pageSegments.slice(0, i + 1).join('/')}`
 
         return (

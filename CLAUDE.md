@@ -327,10 +327,14 @@ POST   /api/upload/cover                       — upload → WebP → Supabase 
 - 3.3 Keyword List Page: ✅ (KeywordTable, FilterBar, Pagination — ตาม Paper design)
 - 3.4 Add Keyword Modal: ✅ (AddKeywordModal — form + auto slug + POST /api/keywords)
 - 3.5 Import CSV Modal: ✅ (ImportCsvModal 3-step wizard + CSV template API + bulk import API)
-**Phase 4 (AI Pipeline):** 0/10 tasks
+**Phase 4 (AI Pipeline):** 4/10 tasks
+- 4.1 Article Generation API (POST /api/ai/article): ✅ (SSE stream, project config, max_tokens=8192)
+- 4.2 AI Writing Page: ✅ (WritingClient SSE streaming, live stats, terminal UI, progress bar)
+- 4.3 Brief Generation API (POST /api/ai/brief): ✅ (SSE stream, project config, brand_voice, writing_rules, site_inventory)
+- 4.4 Brief Review Page: ✅ (BriefClient SSE streaming, 2-panel layout, keyword info, auto-generate, regenerate)
 **Phase 5 (Editor + Cover):** 0/20 tasks
 **Phase 6 (Publish + Settings):** 0/11 tasks
 **Phase 7 (Polish + Build):** 0/12 tasks
-**Overall:** 23/106 tasks (22%)
+**Overall:** 27/106 tasks (25%)
 
 _อัพเดท section นี้ทุกครั้งที่ task เสร็จ_

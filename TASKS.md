@@ -197,10 +197,10 @@
 ### 4.1 Brief Generation
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 4.1.1 | Refactor brief route — ดึง brand_voice + writing_rules จาก project | AI Pipeline | `src/app/api/ai/brief/route.ts` | 🤖 ส่ง project_id → ใช้ config ของ project |
-| 4.1.2 | Brief Review page (2-panel) | Frontend | `src/app/projects/[id]/articles/[slug]/brief/page.tsx` | 👤 เห็น keyword info + brief |
-| 4.1.3 | BriefClient component (streaming + approve/regenerate) | Frontend | `src/app/projects/[id]/articles/[slug]/brief/BriefClient.tsx` | 👤 streaming ทำงาน |
-| 4.1.4 | Approve → สร้าง article record + redirect to writing | Frontend | (ใน BriefClient) | 👤 กด approve → ไป writing page |
+| 4.1.1 | [x] Refactor brief route — ดึง brand_voice + writing_rules จาก project | AI Pipeline | `src/app/api/ai/brief/route.ts` | 🤖 ส่ง project_id → ใช้ config ของ project |
+| 4.1.2 | [x] Brief Review page (2-panel) | Frontend | `src/app/projects/[id]/articles/[slug]/brief/page.tsx` | 👤 เห็น keyword info + brief |
+| 4.1.3 | [x] BriefClient component (streaming + approve/regenerate) | Frontend | `src/app/projects/[id]/articles/[slug]/brief/BriefClient.tsx` | 👤 streaming ทำงาน |
+| 4.1.4 | [x] Approve → สร้าง article record + redirect to writing | Frontend | (ใน BriefClient) | 👤 กด approve → ไป writing page |
 
 **✅ Checkpoint 4.1:**
 - 👤 เลือก keyword → กดเริ่มเขียน → เห็น brief streaming
@@ -214,11 +214,11 @@
 ### 4.2 Article Generation
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 4.2.1 | Refactor article route — ดึง site_inventory + rules จาก project + **max_tokens = 8192** | AI Pipeline | `src/app/api/ai/article/route.ts` | 🤖 max_tokens ถูก |
-| 4.2.2 | AI Writing page (full-page streaming terminal) | Frontend | `src/app/projects/[id]/articles/[slug]/writing/page.tsx` | 👤 เห็น terminal + streaming |
-| 4.2.3 | Stats chips (word count, tokens, cost) — live update | Frontend | (ใน writing page) | 👤 ตัวเลขเพิ่มขึ้นตาม streaming |
-| 4.2.4 | Progress bar + หยุดสร้าง button | Frontend | (ใน writing page) | 👤 กดหยุด → streaming หยุด |
-| 4.2.5 | เสร็จแล้ว → redirect ไป editor | Frontend | (ใน writing page) | 👤 เขียนเสร็จ → ไป editor auto |
+| 4.2.1 | [x] Refactor article route — ดึง site_inventory + rules จาก project + **max_tokens = 8192** | AI Pipeline | `src/app/api/ai/article/route.ts` | 🤖 max_tokens ถูก |
+| 4.2.2 | [x] AI Writing page (full-page streaming terminal) | Frontend | `src/app/projects/[id]/articles/[slug]/writing/page.tsx` | 👤 เห็น terminal + streaming |
+| 4.2.3 | [x] Stats chips (word count, tokens, cost) — live update | Frontend | (ใน writing page) | 👤 ตัวเลขเพิ่มขึ้นตาม streaming |
+| 4.2.4 | [x] Progress bar + หยุดสร้าง button | Frontend | (ใน writing page) | 👤 กดหยุด → streaming หยุด |
+| 4.2.5 | [x] เสร็จแล้ว → redirect ไป editor | Frontend | (ใน writing page) | 👤 เขียนเสร็จ → ไป editor auto |
 
 **✅ Checkpoint 4.2:**
 - 👤 ดู streaming ใน terminal — text ไหลมาเรื่อยๆ
@@ -232,9 +232,9 @@
 ### 4.3 AI Meta Assist
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 4.3.1 | POST /api/ai/meta — generate meta_title, meta_description, excerpt | AI Pipeline | `src/app/api/ai/meta/route.ts` | 🤖 ส่ง content → ได้ meta fields |
-| 4.3.2 | Sparkle button component (ปุ่ม AI ข้าง label) | Frontend | `src/components/ui/AiAssistButton.tsx` | 👤 กด → loading → fill field |
-| 4.3.3 | "สร้างทั้งหมดด้วย AI" button | Frontend | (ใน Editor sidebar) | 👤 กด → fill 3 fields พร้อมกัน |
+| 4.3.1 | [x] POST /api/ai/meta — generate meta_title, meta_description, excerpt | AI Pipeline | `src/app/api/ai/meta/route.ts` | 🤖 ส่ง content → ได้ meta fields |
+| 4.3.2 | [x] Sparkle button component (ปุ่ม AI ข้าง label) | Frontend | `src/components/ui/AiAssistButton.tsx` | 👤 กด → loading → fill field |
+| 4.3.3 | [ ] "สร้างทั้งหมดด้วย AI" button | Frontend | (ใน Editor sidebar) | 👤 กด → fill 3 fields พร้อมกัน |
 
 **✅ Checkpoint 4.3:**
 - 👤 กด sparkle ข้าง Meta Title → AI generate → แสดงใน input
