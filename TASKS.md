@@ -250,16 +250,16 @@
 ### 5.1 Article Editor
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 5.1.1 | Editor page (3-column layout) | Frontend | `src/app/projects/[id]/articles/[slug]/edit/page.tsx` | 👤 เห็น 3 columns |
-| 5.1.2 | EditorClient component (markdown textarea + toolbar) | Frontend | `src/app/projects/[id]/articles/[slug]/edit/EditorClient.tsx` | 👤 พิมพ์ markdown ได้ |
-| 5.1.3 | Left sidebar — Frontmatter tab (title, meta, excerpt, tags) | Frontend | (ใน EditorClient) | 👤 กรอก fields ได้ |
-| 5.1.4 | Left sidebar — SEO Checklist (7 items, real-time check) | Frontend | `src/components/editor/SeoChecklist.tsx` | 👤 แก้ content → checklist update |
-| 5.1.5 | Left sidebar — Cover Image tab | Frontend | `src/components/editor/CoverImageTab.tsx` | 👤 เห็น preview / generate / upload |
-| 5.1.6 | Toolbar (bold, italic, link, list, image, code) | Frontend | `src/components/editor/Toolbar.tsx` | 👤 กด bold → insert ** |
-| 5.1.7 | Word count + auto-save indicator | Frontend | (ใน EditorClient) | 👤 word count ถูก, "บันทึกแล้ว" แสดง |
-| 5.1.8 | Auto-save draft ทุก 30 วินาที | Frontend | (ใน EditorClient) | 👤 แก้ → รอ 30s → "บันทึกแล้ว" |
-| 5.1.9 | Save draft button (manual) | Frontend | (ใน EditorClient) | 👤 กด → PATCH /api/articles/[slug] |
-| 5.1.10 | Publish button → redirect ไป publish page | Frontend | (ใน EditorClient) | 👤 กด → ไป publish confirm |
+| 5.1.1 | [x] Editor page (3-column layout) | Frontend | `src/app/projects/[id]/articles/[slug]/edit/page.tsx` | 👤 เห็น 3 columns |
+| 5.1.2 | [x] EditorClient component (markdown textarea + toolbar) | Frontend | `src/app/projects/[id]/articles/[slug]/edit/EditorClient.tsx` | 👤 พิมพ์ markdown ได้ |
+| 5.1.3 | [x] Left sidebar — Frontmatter tab (title, meta, excerpt, tags) | Frontend | (ใน EditorClient) | 👤 กรอก fields ได้ |
+| 5.1.4 | [x] Left sidebar — SEO Checklist (7 items, real-time check) | Frontend | `src/components/editor/SeoChecklist.tsx` | 👤 แก้ content → checklist update |
+| 5.1.5 | [x] Left sidebar — Cover Image tab | Frontend | `src/components/editor/CoverImageTab.tsx` | 👤 เห็น preview / generate / upload |
+| 5.1.6 | [x] Toolbar (bold, italic, link, list, image, code) | Frontend | `src/components/editor/Toolbar.tsx` | 👤 กด bold → insert ** |
+| 5.1.7 | [x] Word count + auto-save indicator | Frontend | (ใน EditorClient) | 👤 word count ถูก, "บันทึกแล้ว" แสดง |
+| 5.1.8 | [x] Auto-save draft ทุก 30 วินาที | Frontend | (ใน EditorClient) | 👤 แก้ → รอ 30s → "บันทึกแล้ว" |
+| 5.1.9 | [x] Save draft button (manual) | Frontend | (ใน EditorClient) | 👤 กด → PATCH /api/articles/[slug] |
+| 5.1.10 | [x] Publish button → redirect ไป publish page | Frontend | (ใน EditorClient) | 👤 กด → ไป publish confirm |
 
 **✅ Checkpoint 5.1:**
 - 👤 Editor ตรงกับ Paper design (3-column)
@@ -275,16 +275,16 @@
 ### 5.2 Cover Image (fal.ai)
 | # | Task | Agent | Files | Test |
 |---|---|---|---|---|
-| 5.2.1 | Install `@fal-ai/client` | Image | `package.json` | 🤖 npm install OK |
-| 5.2.2 | Image util (download + resize + upload) | Image | `src/lib/image.ts` | 🤖 unit test |
-| 5.2.3 | POST /api/images/generate — fal.ai nano-banana-2 | Image | `src/app/api/images/generate/route.ts` | 🤖 curl → image URL |
-| 5.2.4 | GET /api/images?project_id=xxx | Image | `src/app/api/images/route.ts` | 🤖 curl → JSON array |
-| 5.2.5 | POST /api/images/[id]/use — assign to article | Image | `src/app/api/images/[id]/use/route.ts` | 🤖 article.cover_image_url updated |
-| 5.2.6 | Cover Image Gallery page | Frontend | `src/app/projects/[id]/images/page.tsx` | 👤 เห็น image grid |
-| 5.2.7 | Generate Cover Modal (prompt + resolution + preview) | Frontend | `src/components/images/GenerateCoverModal.tsx` | 👤 กด generate → เห็น preview |
-| 5.2.8 | Auto-generate prompt จาก title + project style | Frontend | (ใน GenerateCoverModal) | 👤 กด → prompt fill อัตโนมัติ |
-| 5.2.9 | "ใช้รูปนี้" → download + resize + upload Supabase Storage | Image | (ใน generate route) | 👤 กด → image ขึ้น Supabase Storage |
-| 5.2.10 | Cover Image tab ใน Editor sidebar | Frontend | `src/components/editor/CoverImageTab.tsx` | 👤 เห็น preview + generate button |
+| 5.2.1 | [x] Install `@fal-ai/client` | Image | `package.json` | 🤖 already installed |
+| 5.2.2 | [x] Image util (download + resize + upload) | Image | `src/lib/image.ts` | 🤖 function ready |
+| 5.2.3 | [x] POST /api/images/generate — fal.ai nano-banana-2 | Image | `src/app/api/images/generate/route.ts` | 🤖 API ready |
+| 5.2.4 | [x] GET /api/images?project_id=xxx | Image | `src/app/api/images/route.ts` | 🤖 API ready |
+| 5.2.5 | [x] POST /api/images/[id]/use — assign to article | Image | `src/app/api/images/[id]/use/route.ts` | 🤖 API ready |
+| 5.2.6 | [x] Cover Image Gallery page | Frontend | `src/app/projects/[id]/images/page.tsx` | 👤 เห็น image grid |
+| 5.2.7 | [x] Generate Cover Modal (prompt + resolution + preview) | Frontend | `src/components/images/GenerateCoverModal.tsx` | 👤 กด generate → เห็น preview |
+| 5.2.8 | [x] Auto-generate prompt จาก title + project style | Frontend | (ใน GenerateCoverModal) | 👤 กด → prompt fill อัตโนมัติ |
+| 5.2.9 | [x] "ใช้รูปนี้" → download + resize + upload Supabase Storage | Image | (ใน generate route) | 👤 กด → image ขึ้น Supabase Storage |
+| 5.2.10 | [x] Cover Image tab ใน Editor sidebar | Frontend | `src/components/editor/CoverImageTab.tsx` | 👤 เห็น preview + generate button |
 
 **✅ Checkpoint 5.2:**
 - 👤 Gallery แสดงรูปทั้งหมดของ project
