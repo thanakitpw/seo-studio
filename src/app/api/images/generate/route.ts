@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { fal } from '@fal-ai/client'
 import { createServiceClient } from '@/lib/supabase'
 import { downloadAndUpload } from '@/lib/image'
-import { toUrlSlug } from '@/lib/slug'
 
 fal.config({ credentials: process.env.FAL_KEY })
 
@@ -10,8 +9,8 @@ interface GenerateRequestBody {
   project_id: string
   article_id?: string
   prompt: string
-  resolution?: string
-  aspect_ratio?: string
+  resolution?: '1K' | '2K' | '4K'
+  aspect_ratio?: '16:9' | '21:9' | '3:2' | '4:3' | '5:4' | '1:1' | '4:5' | '3:4' | '2:3' | '9:16'
 }
 
 interface FalImage {
@@ -22,10 +21,10 @@ interface FalImage {
 
 interface FalResult {
   images: FalImage[]
-  request_id?: string
 }
 
-// POST /api/images/generate — generate cover image with fal.ai
+// POST /api/images/generate — generate cover image with fal.ai nano-banana-pro
+// สร้าง record เฉพาะเมื่อ generate สำเร็จเท่านั้น
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as GenerateRequestBody
@@ -35,6 +34,10 @@ export async function POST(request: NextRequest) {
         { error: 'project_id and prompt are required' },
         { status: 400 }
       )
+    }
+
+    if (!process.env.FAL_KEY) {
+      return NextResponse.json({ error: 'FAL_KEY not configured' }, { status: 500 })
     }
 
     const supabase = createServiceClient()
@@ -54,21 +57,52 @@ export async function POST(request: NextRequest) {
     const projectServiceKey = project.supabase_service_role_key as string
     const storageBucket = (project.storage_bucket as string) || 'images'
 
-    if (!projectSupabaseUrl || !projectServiceKey) {
-      return NextResponse.json(
-        { error: 'Project Supabase connection not configured' },
-        { status: 400 }
-      )
+    // Step 1: Generate with fal.ai nano-banana-pro
+    const result = await fal.subscribe('fal-ai/nano-banana-pro', {
+      input: {
+        prompt: body.prompt,
+        num_images: 1,
+        aspect_ratio: body.aspect_ratio || '16:9',
+        resolution: body.resolution || '1K',
+        output_format: 'webp',
+      },
+    }) as { data: FalResult; requestId?: string }
+
+    const falData = result.data
+    if (!falData?.images?.length) {
+      return NextResponse.json({ error: 'ไม่สามารถสร้างรูปได้' }, { status: 500 })
     }
 
-    // Create cover_images record with status: generating
+    const generatedUrl = falData.images[0].url
+
+    // Step 2: Upload to Supabase Storage (ถ้ามี config)
+    let finalUrl = generatedUrl
+    if (projectSupabaseUrl && projectServiceKey) {
+      try {
+        const slug = `cover-${Date.now()}`
+        finalUrl = await downloadAndUpload(
+          generatedUrl,
+          slug,
+          projectSupabaseUrl,
+          projectServiceKey,
+          storageBucket
+        )
+      } catch {
+        // ใช้ URL จาก fal.ai ตรงๆ ถ้า upload ไม่ได้
+        finalUrl = generatedUrl
+      }
+    }
+
+    // Step 3: สร้าง record เมื่อสำเร็จแล้วเท่านั้น
     const { data: coverImage, error: insertError } = await supabase
       .from('cover_images')
       .insert({
         project_id: body.project_id,
         article_id: body.article_id || null,
         prompt: body.prompt,
-        status: 'generating',
+        status: 'completed',
+        image_url: finalUrl,
+        fal_request_id: result.requestId || null,
         width: 1200,
         height: 630,
       })
@@ -77,78 +111,18 @@ export async function POST(request: NextRequest) {
 
     if (insertError || !coverImage) {
       return NextResponse.json(
-        { error: `Failed to create record: ${insertError?.message}` },
+        { error: `Failed to save: ${insertError?.message}` },
         { status: 500 }
       )
     }
 
-    try {
-      // Call fal.ai nano-banana-2
-      const result = await fal.subscribe('fal-ai/nano-banana-2', {
-        input: {
-          prompt: body.prompt,
-          resolution: body.resolution || '1K',
-          aspect_ratio: body.aspect_ratio || 'landscape_16_9',
-          output_format: 'webp',
-        },
-      }) as { data: FalResult; requestId?: string }
-
-      const falData = result.data
-      if (!falData?.images?.length) {
-        throw new Error('No images returned from fal.ai')
-      }
-
-      const generatedUrl = falData.images[0].url
-      const slug = `cover-${coverImage.id.slice(0, 8)}-${toUrlSlug(body.prompt.slice(0, 30))}`
-
-      // Download, resize, upload to Supabase Storage
-      const publicUrl = await downloadAndUpload(
-        generatedUrl,
-        slug,
-        projectSupabaseUrl,
-        projectServiceKey,
-        storageBucket
-      )
-
-      // Update cover_images record
-      const { error: updateError } = await supabase
-        .from('cover_images')
-        .update({
-          status: 'completed',
-          image_url: publicUrl,
-          fal_request_id: result.requestId || null,
-        })
-        .eq('id', coverImage.id)
-
-      if (updateError) {
-        throw new Error(`Failed to update record: ${updateError.message}`)
-      }
-
-      return NextResponse.json({
-        id: coverImage.id,
-        image_url: publicUrl,
-        status: 'completed',
-      })
-    } catch (falError) {
-      // Update status to failed
-      await supabase
-        .from('cover_images')
-        .update({ status: 'failed' })
-        .eq('id', coverImage.id)
-
-      return NextResponse.json(
-        {
-          error: falError instanceof Error ? falError.message : 'Image generation failed',
-          id: coverImage.id,
-          status: 'failed',
-        },
-        { status: 500 }
-      )
-    }
-  } catch {
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({
+      id: coverImage.id,
+      image_url: finalUrl,
+      status: 'completed',
+    })
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Image generation failed'
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
 }

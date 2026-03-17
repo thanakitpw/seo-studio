@@ -185,12 +185,25 @@ export default function ImagesPage() {
                 <div className="space-y-1.5 p-3">
                   <div className="flex items-center justify-between">
                     {getStatusBadge(image)}
-                    <span className="text-xs text-slate-400">
-                      {new Date(image.created_at).toLocaleDateString('th-TH', {
-                        day: 'numeric',
-                        month: 'short',
-                      })}
-                    </span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-xs text-slate-400">
+                        {new Date(image.created_at).toLocaleDateString('th-TH', {
+                          day: 'numeric',
+                          month: 'short',
+                        })}
+                      </span>
+                      <button
+                        onClick={async () => {
+                          if (!confirm('ลบรูปนี้?')) return
+                          await fetch(`/api/images/${image.id}`, { method: 'DELETE' })
+                          fetchImages()
+                        }}
+                        className="cursor-pointer rounded p-0.5 text-muted-foreground/40 transition-colors hover:text-red-500"
+                        title="ลบ"
+                      >
+                        <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>delete</span>
+                      </button>
+                    </div>
                   </div>
                   {linkedArticle && (
                     <p className="truncate text-sm font-medium text-slate-700">

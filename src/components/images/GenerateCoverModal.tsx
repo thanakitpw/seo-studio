@@ -18,15 +18,15 @@ interface GenerateCoverModalProps {
 }
 
 const RESOLUTIONS = [
-  { value: '0.5K', label: '0.5K' },
   { value: '1K', label: '1K' },
   { value: '2K', label: '2K' },
+  { value: '4K', label: '4K' },
 ]
 
 const ASPECT_RATIOS = [
-  { value: 'landscape_16_9', label: '16:9' },
-  { value: 'landscape_4_3', label: '4:3' },
-  { value: 'square', label: '1:1' },
+  { value: '16:9', label: '16:9' },
+  { value: '4:3', label: '4:3' },
+  { value: '1:1', label: '1:1' },
 ]
 
 export default function GenerateCoverModal({
@@ -41,7 +41,7 @@ export default function GenerateCoverModal({
   const [articleId, setArticleId] = useState('')
   const [prompt, setPrompt] = useState('')
   const [resolution, setResolution] = useState('1K')
-  const [aspectRatio, setAspectRatio] = useState('landscape_16_9')
+  const [aspectRatio, setAspectRatio] = useState('16:9')
   const [generating, setGenerating] = useState(false)
   const [generatedImage, setGeneratedImage] = useState<{ id: string; image_url: string } | null>(null)
   const [assigning, setAssigning] = useState(false)
