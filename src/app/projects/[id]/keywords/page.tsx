@@ -31,6 +31,8 @@ export default function KeywordsPage() {
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const [addModalOpen, setAddModalOpen] = useState(false)
   const [importModalOpen, setImportModalOpen] = useState(false)
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
+  const [bulkDeleting, setBulkDeleting] = useState(false)
   const [filters, setFilters] = useState({
     cluster: '',
     status: '',
@@ -130,6 +132,23 @@ export default function KeywordsPage() {
     }
   }
 
+  const handleBulkDelete = async () => {
+    if (selectedIds.size === 0) return
+    if (!confirm(`ลบคำหลักที่เลือก ${selectedIds.size} รายการ หรือไม่?`)) return
+    setBulkDeleting(true)
+    try {
+      for (const id of selectedIds) {
+        await fetch(`/api/keywords/${id}`, { method: 'DELETE' })
+      }
+      setSelectedIds(new Set())
+      fetchKeywords()
+    } catch {
+      // ignore
+    } finally {
+      setBulkDeleting(false)
+    }
+  }
+
   return (
     <div className="p-8">
       {/* Header Bar */}
@@ -180,13 +199,64 @@ export default function KeywordsPage() {
         onFilterChange={handleFilterChange}
       />
 
+      {/* Bulk Action Bar */}
+      {selectedIds.size > 0 && (
+        <div className="flex items-center gap-3 rounded-xl border border-[#6467f2]/20 bg-[#6467f2]/5 px-4 py-2.5 mt-4">
+          <span className="text-sm font-medium text-foreground">
+            เลือก {selectedIds.size} รายการ
+          </span>
+          <div className="flex-1" />
+          <Button
+            variant="destructive"
+            size="sm"
+            className="cursor-pointer gap-1.5"
+            onClick={handleBulkDelete}
+            disabled={bulkDeleting}
+          >
+            {bulkDeleting ? (
+              <span className="material-symbols-outlined animate-spin" style={{ fontSize: '14px' }}>progress_activity</span>
+            ) : (
+              <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>delete</span>
+            )}
+            ลบที่เลือก
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="cursor-pointer"
+            onClick={() => setSelectedIds(new Set())}
+          >
+            ยกเลิกเลือก
+          </Button>
+        </div>
+      )}
+
       {/* Table */}
       {loading ? (
         <div className="flex items-center justify-center py-20">
           <span className="material-symbols-outlined animate-spin text-3xl text-muted-foreground/50">progress_activity</span>
         </div>
+      ) : !loading && keywords.length === 0 && !debouncedSearch && !filters.cluster && !filters.status && !filters.priority && !filters.content_type ? (
+        <div className="flex flex-col items-center justify-center py-20">
+          <span className="material-symbols-outlined text-5xl text-muted-foreground/30">key</span>
+          <p className="mt-3 text-lg font-medium text-muted-foreground">ยังไม่มีคำหลัก</p>
+          <p className="mt-1 text-sm text-muted-foreground/70">เริ่มต้นเพิ่มคำหลักเพื่อสร้างบทความ SEO</p>
+          <Button
+            className="mt-4 cursor-pointer gap-1.5"
+            onClick={() => setAddModalOpen(true)}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>add</span>
+            เพิ่มคำหลัก
+          </Button>
+        </div>
       ) : (
-        <KeywordTable keywords={keywords} onView={handleView} onDelete={handleDelete} />
+        <KeywordTable
+          keywords={keywords}
+          onView={handleView}
+          onDelete={handleDelete}
+          selectedIds={selectedIds}
+          onSelectionChange={setSelectedIds}
+        />
       )}
 
       {/* Pagination */}

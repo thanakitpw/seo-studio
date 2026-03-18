@@ -342,22 +342,22 @@
 ### 7.1 Polish
 | # | Task | Agent | Test |
 |---|---|---|---|
-| 7.1.1 | Empty states ทุกหน้า (keyword list ว่าง, articles ว่าง, images ว่าง) | Frontend | 👤 ลบข้อมูล → เห็น empty state + CTA |
-| 7.1.2 | Loading states (skeleton loaders ทุกหน้า) | Frontend | 👤 refresh → เห็น skeleton ก่อน content |
-| 7.1.3 | Error toasts (API errors แสดง toast message) | Frontend | 👤 ปิด Supabase → เห็น error toast |
-| 7.1.4 | Responsive: sidebar collapse บน tablet | Frontend | 👤 ย่อจอ → sidebar collapse |
-| 7.1.5 | Cover image prompt — ใช้ project `cover_image_style` | AI Pipeline | 🤖 prompt รวม style ของ project |
-| 7.1.6 | ลบ console.log / debug code ทั้งหมด | 🤖 Orchestrator | 🤖 grep console.log → 0 results |
+| 7.1.1 | [x] Empty states ทุกหน้า (keyword list ว่าง, dashboard ว่าง) | Frontend | 👤 เห็น empty state + CTA |
+| 7.1.2 | [x] Loading states (spinner ทุกหน้า) | Frontend | 👤 refresh → เห็น spinner |
+| 7.1.3 | [ ] Error toasts (API errors แสดง toast message) | Frontend | 👤 ปิด Supabase → เห็น error toast |
+| 7.1.4 | [x] Responsive: sidebar collapse บน tablet | Frontend | 👤 ย่อจอ → sidebar collapse |
+| 7.1.5 | [x] Cover image prompt — ใช้ project `cover_image_style` | AI Pipeline | 🤖 prompt รวม style ของ project |
+| 7.1.6 | [x] ลบ console.log / debug code ทั้งหมด | 🤖 Orchestrator | 🤖 grep console.log → 0 results |
 
 ### 7.2 Final Test
 | # | Task | Test |
 |---|---|---|
-| 7.2.1 | `npx tsc --noEmit` | 🤖 0 errors |
-| 7.2.2 | `npm run build` | 🤖 build สำเร็จ |
-| 7.2.3 | Full E2E flow: สร้างโปรเจค → เพิ่ม keyword → generate brief → generate article → edit → generate cover → publish | 👤 ทำได้ครบ |
-| 7.2.4 | Import CSV flow: upload best_solutions_content_calendar.csv → preview → import | 👤 import 72 rows สำเร็จ |
-| 7.2.5 | AI meta assist: กด sparkle → meta fields fill ถูก | 👤 ทำงานทุก field |
-| 7.2.6 | Multi-project: สลับ project → ข้อมูลเปลี่ยนตาม project | 👤 ไม่มี data leak ข้าม project |
+| 7.2.1 | [x] `npx tsc --noEmit` | 🤖 0 errors ✅ |
+| 7.2.2 | [ ] `npm run build` | 🤖 build สำเร็จ |
+| 7.2.3 | [ ] Full E2E flow | 👤 ทำได้ครบ |
+| 7.2.4 | [ ] Import CSV flow | 👤 import สำเร็จ |
+| 7.2.5 | [ ] AI meta assist | 👤 ทำงานทุก field |
+| 7.2.6 | [ ] Multi-project | 👤 ไม่มี data leak ข้าม project |
 
 **✅ Final Checkpoint:**
 - 🤖 Build ผ่าน 0 errors

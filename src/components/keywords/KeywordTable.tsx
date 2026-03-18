@@ -8,6 +8,8 @@ interface KeywordTableProps {
   keywords: Keyword[]
   onView: (keyword: Keyword) => void
   onDelete?: (keyword: Keyword) => void
+  selectedIds?: Set<string>
+  onSelectionChange?: (ids: Set<string>) => void
 }
 
 // Status display config
@@ -87,10 +89,14 @@ type SortDir = 'asc' | 'desc'
 
 const priorityOrder: Record<string, number> = { High: 3, Medium: 2, Low: 1 }
 
-export default function KeywordTable({ keywords, onView, onDelete }: KeywordTableProps) {
+export default function KeywordTable({ keywords, onView, onDelete, selectedIds, onSelectionChange }: KeywordTableProps) {
   const [sortField, setSortField] = useState<SortField | null>(null)
   const [sortDir, setSortDir] = useState<SortDir>('asc')
-  const [selected, setSelected] = useState<Set<string>>(new Set())
+
+  // Use external selection state if provided, otherwise use internal
+  const [internalSelected, setInternalSelected] = useState<Set<string>>(new Set())
+  const selected = selectedIds ?? internalSelected
+  const setSelected = onSelectionChange ?? setInternalSelected
 
   const toggleAll = () => {
     if (selected.size === keywords.length) {
@@ -101,12 +107,10 @@ export default function KeywordTable({ keywords, onView, onDelete }: KeywordTabl
   }
 
   const toggleOne = (id: string) => {
-    setSelected((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
+    const next = new Set(selected)
+    if (next.has(id)) next.delete(id)
+    else next.add(id)
+    setSelected(next)
   }
 
   const handleSort = (field: SortField) => {

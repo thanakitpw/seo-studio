@@ -121,19 +121,36 @@ export default async function DashboardPage({ params }: PageProps) {
           />
         </div>
 
-        {/* Two Columns: Categories + Recent Activity — scroll ภายใน */}
-        <div className="grid grid-cols-2 gap-5 flex-1 min-h-0">
-          <CategoryProgress categories={categories} />
-          <RecentActivity activities={recentArticles ?? []} />
-        </div>
+        {totalKeywords === 0 ? (
+          <div className="flex flex-col items-center justify-center flex-1 min-h-0">
+            <span className="material-symbols-outlined text-5xl text-slate-300">key</span>
+            <p className="mt-3 text-lg font-medium text-slate-500">เริ่มต้นเพิ่มคำหลัก</p>
+            <p className="mt-1 text-sm text-slate-400">เพิ่มคำหลักเพื่อเริ่มสร้างบทความ SEO สำหรับโปรเจคนี้</p>
+            <Link
+              href={`/projects/${projectId}/keywords`}
+              className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[#6467f2] px-4 py-2 text-sm font-medium text-white hover:bg-[#5355d1] transition-colors"
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>add</span>
+              เพิ่มคำหลัก
+            </Link>
+          </div>
+        ) : (
+          <>
+            {/* Two Columns: Categories + Recent Activity — scroll ภายใน */}
+            <div className="grid grid-cols-2 gap-5 flex-1 min-h-0">
+              <CategoryProgress categories={categories} />
+              <RecentActivity activities={recentArticles ?? []} />
+            </div>
 
-        {/* Token Usage — always visible */}
-        <div className="shrink-0">
-          <TokenUsage
-            totalTokens={totalTokens}
-            totalArticles={articlesWithTokens.length}
-          />
-        </div>
+            {/* Token Usage — always visible */}
+            <div className="shrink-0">
+              <TokenUsage
+                totalTokens={totalTokens}
+                totalArticles={articlesWithTokens.length}
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   )

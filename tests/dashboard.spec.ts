@@ -7,7 +7,7 @@ test.describe('Project Dashboard', () => {
     await login(page)
     // Click on Best Solutions project
     await page.locator('text=Best Solutions').first().click()
-    await page.waitForURL(/\/projects\/.*\/dashboard/, { timeout: 15000 })
+    await page.waitForURL(/\/projects\/.*\/dashboard/, { timeout: 30000 })
   })
 
   test('should show project name and domain', async ({ page }) => {

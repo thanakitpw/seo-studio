@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Sidebar from './Sidebar'
 import Breadcrumb from './Breadcrumb'
@@ -12,6 +12,17 @@ export default function ProjectsLayoutClient({
 }) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
+
+  // Auto-collapse sidebar on small screens
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)')
+    const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setCollapsed(e.matches)
+    }
+    handleChange(mql)
+    mql.addEventListener('change', handleChange)
+    return () => mql.removeEventListener('change', handleChange)
+  }, [])
 
   // Full-screen pages without sidebar
   const isFullScreen = pathname === '/projects/new'

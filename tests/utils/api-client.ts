@@ -63,6 +63,25 @@ export class ApiClient {
   async downloadTemplate() {
     return this.request.get(`${BASE_URL}/keywords/template`)
   }
+
+  // --- Articles ---
+  async getArticles(projectId: string, params?: Record<string, string>) {
+    const query = new URLSearchParams({ project_id: projectId, ...params })
+    return this.request.get(`${BASE_URL}/articles?${query}`)
+  }
+
+  async getArticle(slug: string) {
+    return this.request.get(`${BASE_URL}/articles/${encodeURIComponent(slug)}`)
+  }
+
+  async updateArticle(slug: string, data: Record<string, unknown>) {
+    return this.request.patch(`${BASE_URL}/articles/${encodeURIComponent(slug)}`, { data })
+  }
+
+  // --- Images ---
+  async getImages(projectId: string) {
+    return this.request.get(`${BASE_URL}/images?project_id=${projectId}`)
+  }
 }
 
 /** Create an authenticated API client */
