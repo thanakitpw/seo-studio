@@ -119,7 +119,7 @@ export default function BriefClient({ project, keyword, initialArticle, projectI
       generateBrief()
     }
     return () => {
-      abortRef.current?.abort()
+      abortRef.current?.abort('component unmounted')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -277,7 +277,7 @@ export default function BriefClient({ project, keyword, initialArticle, projectI
         </div>
 
         {/* Right Panel - Brief Content */}
-        <div className="flex flex-1 flex-col">
+        <div className="flex min-w-0 flex-1 flex-col">
           <Card className="flex flex-1 flex-col">
             {/* Header */}
             <CardHeader className="flex-row items-center justify-between border-b">
@@ -339,7 +339,7 @@ export default function BriefClient({ project, keyword, initialArticle, projectI
 
                 {briefMd && (
                   <div
-                    className="prose prose-sm max-w-none prose-headings:text-foreground prose-h2:mt-6 prose-h2:mb-2 prose-h2:text-lg prose-h2:font-bold prose-h3:mt-4 prose-h3:mb-1 prose-h3:text-base prose-h3:font-semibold prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground prose-strong:text-foreground"
+                    className="prose prose-sm max-w-none overflow-x-hidden break-words prose-headings:text-foreground prose-h2:mt-6 prose-h2:mb-2 prose-h2:text-lg prose-h2:font-bold prose-h3:mt-4 prose-h3:mb-1 prose-h3:text-base prose-h3:font-semibold prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground prose-strong:text-foreground prose-pre:overflow-x-auto prose-pre:max-w-full prose-code:break-all"
                     dangerouslySetInnerHTML={{ __html: typeof briefHtml === 'string' ? briefHtml : '' }}
                   />
                 )}

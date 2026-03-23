@@ -192,6 +192,32 @@ export default function ImagesPage() {
                           month: 'short',
                         })}
                       </span>
+                      {image.image_url && (
+                        <button
+                          onClick={async (e) => {
+                            e.stopPropagation()
+                            try {
+                              const res = await fetch(image.image_url!)
+                              const blob = await res.blob()
+                              const url = URL.createObjectURL(blob)
+                              const a = document.createElement('a')
+                              a.href = url
+                              a.download = `cover-${image.id.slice(0, 8)}.webp`
+                              document.body.appendChild(a)
+                              a.click()
+                              document.body.removeChild(a)
+                              URL.revokeObjectURL(url)
+                            } catch {
+                              // fallback: open in new tab
+                              window.open(image.image_url!, '_blank')
+                            }
+                          }}
+                          className="cursor-pointer rounded p-0.5 text-muted-foreground/40 transition-colors hover:text-[#6467f2]"
+                          title="ดาวน์โหลด"
+                        >
+                          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>download</span>
+                        </button>
+                      )}
                       <button
                         onClick={async () => {
                           if (!confirm('ลบรูปนี้?')) return
