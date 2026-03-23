@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { AiAssistButton } from '@/components/ui/AiAssistButton'
+import { toast } from 'sonner'
 import { Toolbar } from '@/components/editor/Toolbar'
 import { SeoChecklist } from '@/components/editor/SeoChecklist'
 
@@ -97,9 +98,11 @@ export default function EditorClient({ article, projectId, slug }: EditorClientP
         setSaveStatus('saved')
       } else {
         setSaveStatus('unsaved')
+        toast.error('บันทึกไม่สำเร็จ')
       }
     } catch {
       setSaveStatus('unsaved')
+      toast.error('เกิดข้อผิดพลาดในการบันทึก')
     }
   }, [article.slug, title, content, metaTitle, metaDescription, excerpt, tags])
 
@@ -160,7 +163,7 @@ export default function EditorClient({ article, projectId, slug }: EditorClientP
         if (data.excerpt) setExcerpt(data.excerpt)
       }
     } catch {
-      // silently fail
+      toast.error('AI สร้าง meta ไม่สำเร็จ')
     } finally {
       setAiLoading(prev => ({ ...prev, [key]: false }))
     }

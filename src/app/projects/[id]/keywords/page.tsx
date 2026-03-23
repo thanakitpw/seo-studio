@@ -10,6 +10,7 @@ import Pagination from '@/components/keywords/Pagination'
 import AddKeywordModal from '@/components/keywords/AddKeywordModal'
 import ImportCsvModal from '@/components/keywords/ImportCsvModal'
 import type { Keyword } from '@/types'
+import { toast } from 'sonner'
 
 interface KeywordsResponse {
   data: Keyword[]
@@ -75,6 +76,7 @@ export default function KeywordsPage() {
       setTotal(json.total)
       setTotalPages(json.totalPages)
     } catch {
+      toast.error('โหลดรายการคำหลักไม่สำเร็จ')
       setKeywords([])
       setTotal(0)
       setTotalPages(1)
@@ -125,10 +127,13 @@ export default function KeywordsPage() {
     try {
       const res = await fetch(`/api/keywords/${keyword.id}`, { method: 'DELETE' })
       if (res.ok) {
+        toast.success('ลบคำหลักแล้ว')
         fetchKeywords()
+      } else {
+        toast.error('ลบคำหลักไม่สำเร็จ')
       }
     } catch {
-      // ignore
+      toast.error('เกิดข้อผิดพลาดในการลบ')
     }
   }
 
@@ -141,9 +146,10 @@ export default function KeywordsPage() {
         await fetch(`/api/keywords/${id}`, { method: 'DELETE' })
       }
       setSelectedIds(new Set())
+      toast.success('ลบคำหลักที่เลือกแล้ว')
       fetchKeywords()
     } catch {
-      // ignore
+      toast.error('เกิดข้อผิดพลาดในการลบ')
     } finally {
       setBulkDeleting(false)
     }

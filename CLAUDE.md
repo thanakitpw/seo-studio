@@ -319,22 +319,18 @@ POST   /api/upload/cover                       — upload → WebP → Supabase 
 - 1.1 สร้างโปรเจค: ✅ (Next.js 16, deps, env, supabase, proxy, types, tailwind)
 - 1.2 Database Migrations: ✅ (SQL files สร้างแล้ว — รอ user รันบน Supabase)
 
-**Phase 2 (Layout + Navigation):** 6/13 tasks
-- 2.2 Projects API (CRUD + test-connection): ✅
-**Phase 3 (Core Pages):** 5/28 tasks
-- 3.1 Project Dashboard: ✅ (StatsCards, CategoryProgress, RecentActivity, TokenUsage — real Supabase data)
-- 3.2 Keywords API: ✅ (GET with pagination/filter/search, POST, PATCH)
-- 3.3 Keyword List Page: ✅ (KeywordTable, FilterBar, Pagination — ตาม Paper design)
-- 3.4 Add Keyword Modal: ✅ (AddKeywordModal — form + auto slug + POST /api/keywords)
-- 3.5 Import CSV Modal: ✅ (ImportCsvModal 3-step wizard + CSV template API + bulk import API)
-**Phase 4 (AI Pipeline):** 4/10 tasks
-- 4.1 Article Generation API (POST /api/ai/article): ✅ (SSE stream, project config, max_tokens=8192)
-- 4.2 AI Writing Page: ✅ (WritingClient SSE streaming, live stats, terminal UI, progress bar)
-- 4.3 Brief Generation API (POST /api/ai/brief): ✅ (SSE stream, project config, brand_voice, writing_rules, site_inventory)
-- 4.4 Brief Review Page: ✅ (BriefClient SSE streaming, 2-panel layout, keyword info, auto-generate, regenerate)
-**Phase 5 (Editor + Cover):** 0/20 tasks
-**Phase 6 (Publish + Settings):** 0/11 tasks
-**Phase 7 (Polish + Build):** 0/12 tasks
-**Overall:** 27/106 tasks (25%)
+**Phase 2 (Layout + Navigation):** 13/13 tasks ✅ COMPLETE
+
+**Phase 3 (Core Pages):** 28/28 tasks ✅ COMPLETE
+
+**Phase 4 (AI Pipeline):** 10/10 tasks ✅ COMPLETE
+
+**Phase 5 (Editor + Cover):** 20/20 tasks ✅ COMPLETE
+
+**Phase 6 (Publish + Settings):** 11/11 tasks ✅ COMPLETE
+
+**Phase 7 (Polish + Build):** 12/12 tasks ✅ COMPLETE
+
+**Overall:** 106/106 tasks (100%) ✅ ALL COMPLETE
 
 _อัพเดท section นี้ทุกครั้งที่ task เสร็จ_

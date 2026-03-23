@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import Pagination from '@/components/keywords/Pagination'
 import type { Article } from '@/types'
+import { toast } from 'sonner'
 
 interface ArticlesResponse {
   data: Article[]
@@ -84,7 +85,7 @@ export default function ArticlesPage() {
         setTotalPages(json.totalPages)
       }
     } catch {
-      // ignore
+      toast.error('โหลดรายการบทความไม่สำเร็จ')
     } finally {
       setLoading(false)
     }

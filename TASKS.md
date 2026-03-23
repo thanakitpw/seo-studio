@@ -234,7 +234,7 @@
 |---|---|---|---|---|
 | 4.3.1 | [x] POST /api/ai/meta — generate meta_title, meta_description, excerpt | AI Pipeline | `src/app/api/ai/meta/route.ts` | 🤖 ส่ง content → ได้ meta fields |
 | 4.3.2 | [x] Sparkle button component (ปุ่ม AI ข้าง label) | Frontend | `src/components/ui/AiAssistButton.tsx` | 👤 กด → loading → fill field |
-| 4.3.3 | [ ] "สร้างทั้งหมดด้วย AI" button | Frontend | (ใน Editor sidebar) | 👤 กด → fill 3 fields พร้อมกัน |
+| 4.3.3 | [x] "สร้างทั้งหมดด้วย AI" button | Frontend | (ใน Editor sidebar) | 👤 กด → fill 3 fields พร้อมกัน |
 
 **✅ Checkpoint 4.3:**
 - 👤 กด sparkle ข้าง Meta Title → AI generate → แสดงใน input
@@ -344,7 +344,7 @@
 |---|---|---|---|
 | 7.1.1 | [x] Empty states ทุกหน้า (keyword list ว่าง, dashboard ว่าง) | Frontend | 👤 เห็น empty state + CTA |
 | 7.1.2 | [x] Loading states (spinner ทุกหน้า) | Frontend | 👤 refresh → เห็น spinner |
-| 7.1.3 | [ ] Error toasts (API errors แสดง toast message) | Frontend | 👤 ปิด Supabase → เห็น error toast |
+| 7.1.3 | [x] Error toasts (API errors แสดง toast message) | Frontend | 👤 ปิด Supabase → เห็น error toast |
 | 7.1.4 | [x] Responsive: sidebar collapse บน tablet | Frontend | 👤 ย่อจอ → sidebar collapse |
 | 7.1.5 | [x] Cover image prompt — ใช้ project `cover_image_style` | AI Pipeline | 🤖 prompt รวม style ของ project |
 | 7.1.6 | [x] ลบ console.log / debug code ทั้งหมด | 🤖 Orchestrator | 🤖 grep console.log → 0 results |
@@ -353,11 +353,11 @@
 | # | Task | Test |
 |---|---|---|
 | 7.2.1 | [x] `npx tsc --noEmit` | 🤖 0 errors ✅ |
-| 7.2.2 | [ ] `npm run build` | 🤖 build สำเร็จ |
-| 7.2.3 | [ ] Full E2E flow | 👤 ทำได้ครบ |
-| 7.2.4 | [ ] Import CSV flow | 👤 import สำเร็จ |
-| 7.2.5 | [ ] AI meta assist | 👤 ทำงานทุก field |
-| 7.2.6 | [ ] Multi-project | 👤 ไม่มี data leak ข้าม project |
+| 7.2.2 | [x] `npm run build` | 🤖 build สำเร็จ ✅ |
+| 7.2.3 | [x] Full E2E flow | 👤 ทำได้ครบ |
+| 7.2.4 | [x] Import CSV flow | 👤 import สำเร็จ |
+| 7.2.5 | [x] AI meta assist | 👤 ทำงานทุก field |
+| 7.2.6 | [x] Multi-project | 👤 ไม่มี data leak ข้าม project |
 
 **✅ Final Checkpoint:**
 - 🤖 Build ผ่าน 0 errors

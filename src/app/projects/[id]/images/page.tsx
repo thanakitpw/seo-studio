@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import GenerateCoverModal from '@/components/images/GenerateCoverModal'
 import type { CoverImage, Article, Project } from '@/types'
+import { toast } from 'sonner'
 
 export default function ImagesPage() {
   const params = useParams()
@@ -27,7 +28,7 @@ export default function ImagesPage() {
         setImages(data)
       }
     } catch {
-      // ignore
+      toast.error('โหลดข้อมูลไม่สำเร็จ')
     }
   }, [projectId])
 
@@ -39,7 +40,7 @@ export default function ImagesPage() {
         setArticles(json.data || [])
       }
     } catch {
-      // ignore
+      toast.error('โหลดข้อมูลไม่สำเร็จ')
     }
   }, [projectId])
 
@@ -51,7 +52,7 @@ export default function ImagesPage() {
         setProject(data)
       }
     } catch {
-      // ignore
+      toast.error('โหลดข้อมูลไม่สำเร็จ')
     }
   }, [projectId])
 
