@@ -9,6 +9,10 @@ const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 export const metadata: Metadata = {
   title: 'SEO Studio v2.0 — Multi-Project SEO Tool',
   description: 'เครื่องมือจัดการ SEO Content Pipeline สำหรับหลายโปรเจค',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-icon.png',
+  },
 }
 
 export default function RootLayout({

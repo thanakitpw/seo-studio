@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="body" x1="0.3" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#818CF8"/>
+      <stop offset="50%" stop-color="#6467F2"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="window" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#C7D2FE"/>
+      <stop offset="100%" stop-color="#A5B4FC"/>
+    </linearGradient>
+    <linearGradient id="flame1" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="60%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="flame2" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="50%" stop-color="#FB923C"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+    <linearGradient id="fin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#4F46E5" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Outer flame glow -->
+  <ellipse cx="256" cy="420" rx="45" ry="70" fill="#F97316" opacity="0.15" filter="url(#glow)"/>
+
+  <!-- Flames outer -->
+  <path d="M230 360 Q220 410 240 450 Q256 470 272 450 Q292 410 282 360 Z" fill="url(#flame1)" opacity="0.9"/>
+
+  <!-- Flames inner -->
+  <path d="M240 360 Q235 400 248 435 Q256 448 264 435 Q277 400 272 360 Z" fill="url(#flame2)"/>
+
+  <!-- Rocket body -->
+  <g filter="url(#shadow)">
+    <!-- Main body -->
+    <path d="M256 60 C220 60 195 120 190 200 L190 320 Q190 350 210 355 L302 355 Q322 350 322 320 L322 200 C317 120 292 60 256 60 Z" fill="url(#body)"/>
+
+    <!-- Body highlight (left side) -->
+    <path d="M256 60 C235 60 215 100 207 160 L207 310 Q207 340 220 345 L240 348 L240 160 C240 110 248 70 256 60 Z" fill="white" opacity="0.15"/>
+
+    <!-- Nose cone tip highlight -->
+    <ellipse cx="248" cy="95" rx="8" ry="18" fill="white" opacity="0.2" transform="rotate(-8 248 95)"/>
+  </g>
+
+  <!-- Window -->
+  <circle cx="256" cy="195" r="35" fill="url(#window)" stroke="#4F46E5" stroke-width="4"/>
+  <circle cx="256" cy="195" r="25" fill="#E0E7FF" opacity="0.6"/>
+  <ellipse cx="246" cy="185" rx="10" ry="12" fill="white" opacity="0.5"/>
+
+  <!-- Left fin -->
+  <path d="M190 280 L145 340 L145 365 Q145 375 155 370 L190 345 Z" fill="url(#fin)"/>
+  <path d="M190 280 L165 315 L165 340 L190 320 Z" fill="white" opacity="0.1"/>
+
+  <!-- Right fin -->
+  <path d="M322 280 L367 340 L367 365 Q367 375 357 370 L322 345 Z" fill="url(#fin)"/>
+
+  <!-- Bottom band -->
+  <rect x="195" y="330" width="122" height="12" rx="4" fill="#4338CA" opacity="0.4"/>
+  <rect x="195" y="346" width="122" height="8" rx="3" fill="#4338CA" opacity="0.25"/>
+
+  <!-- Speed lines (subtle) -->
+  <line x1="140" y1="180" x2="140" y2="220" stroke="#A5B4FC" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+  <line x1="120" y1="220" x2="120" y2="270" stroke="#A5B4FC" stroke-width="2" opacity="0.2" stroke-linecap="round"/>
+  <line x1="372" y1="190" x2="372" y2="240" stroke="#A5B4FC" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+  <line x1="392" y1="240" x2="392" y2="280" stroke="#A5B4FC" stroke-width="2" opacity="0.2" stroke-linecap="round"/>
+</svg>

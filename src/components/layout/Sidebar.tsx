@@ -97,10 +97,10 @@ export default function Sidebar({ projectId, collapsed = false, onToggle }: Side
         <div className={cn('flex items-center pt-5 pb-4', collapsed ? 'px-3 flex-col gap-2' : 'px-4 gap-3')}>
           <Link
             href="/projects"
-            className="size-9 rounded-full bg-gradient-to-br from-[#6467f2] to-[#8b5cf6] flex items-center justify-center text-white shrink-0 hover:opacity-90 transition-opacity cursor-pointer"
+            className="size-9 rounded-full flex items-center justify-center shrink-0 hover:opacity-90 transition-opacity cursor-pointer overflow-hidden"
             title="กลับไปหน้าโปรเจค"
           >
-            <span className="material-symbols-outlined text-[20px]">edit_note</span>
+            <img src="/logo.svg" alt="SEO Studio" className="size-9 object-contain" />
           </Link>
           {!collapsed && (
             <Link href="/projects" className="flex-1 cursor-pointer hover:opacity-80 transition-opacity">

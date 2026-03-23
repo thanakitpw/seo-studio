@@ -36,8 +36,8 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <div className="size-14 bg-primary rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg shadow-primary/30">
-            <span className="material-symbols-outlined text-[32px]">rocket_launch</span>
+          <div className="size-14 rounded-2xl flex items-center justify-center mb-4 overflow-hidden">
+            <img src="/logo.svg" alt="SEO Studio" className="size-14 object-contain" />
           </div>
           <h1 className="text-slate-900 text-2xl font-bold">SEO Studio</h1>
           <p className="text-slate-500 text-sm mt-1">v2.0 — Multi-Project SEO Tool</p>
